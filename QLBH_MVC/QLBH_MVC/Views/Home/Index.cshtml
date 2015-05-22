@@ -1,0 +1,134 @@
+﻿<div class="grid condensed bg-darkCobalt" style="margin-top:3.125rem;margin-bottom:0">
+    <div class="row">
+        <div class="cell">
+            <div class="grid condensed" style="margin-top:0;margin-bottom:0">
+                <div class="row">
+                    <div class="presenter" data-role="presenter" data-height="220" data-easing="swing">
+                        <div class="scene">
+                            <div class="act bg-darkEmerald fg-white">
+                                <img src="~/images/home/5.jpg" class="actor" data-position="10,10" style="height: 200px">
+                                <h1 class="actor" data-position="10,420">Phong cách thời thượng</h1>
+                                <p class="actor" data-position="70,420">Những chiếc túi làm bằng chất liệu cao cấp, sẵn sàng hài lòng những ai khó tính nhất</p>
+                                <p class="actor" data-position="130,420">Sở hữu những kiểu dáng hợp thời trang, giúp cho bạn cực kì tự tin khi mang</p>
+                            </div>
+                            <div class="act bg-steel fg-white">
+                                <img src="~/images/home/10.jpg" class="actor" data-position="10,10" style="height: 200px">
+                                <h1 class="actor" data-position="10,270">Thiết kế mới nhất</h1>
+                                <p class="actor" data-position="60,270">Cửa hàng chúng tôi luôn cập nhập những mẫu sản phẩm mới nhất trên thị trường</p>
+                                <p class="actor" data-position="120,270">Bạn sẽ không hối tiếc khi sở hữu một trong những mẫu túi thời trang tốt nhất ở đây đâu!</p>
+                            </div>
+                            <div class="act bg-darkIndigo fg-white">
+                                <img src="~/images/home/8.jpg" class="actor" data-position="10,10" style="height: 200px">
+                                <h1 class="actor" data-position="10,350">Hỗ trợ khách hàng tận tình</h1>
+                                <p class="actor" data-position="60,350">Nếu bạn đang đắn đo nên chọn mẫu túi nào phù hợp, chúng tôi sẵn sàng hỗ trợ bạn bất kỳ lúc nào</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="grid condensed bg-white" style="margin-top:0;margin-bottom:0">
+    <div class="row cells4">
+        <div class="cell">
+            <div class="row">
+                <ul class="sidebar2" style="max-width:none">
+                    <li class="stick bg-grayLight">
+                        <a class="dropdown-toggle" href="#">Loại sản phẩm</a>
+                        <ul class="d-menu" style="max-width:none" data-role="dropdown">
+                            @Html.Action("PartialList", "Category")
+                        </ul>
+                    </li>
+                    <li class="stick bg-grayLight">
+                        <a class="dropdown-toggle" href="#">Nhà sản xuất</a>
+                        <ul class="d-menu" style="max-width:none" data-role="dropdown">
+                            @Html.Action("PartialList", "Manufacturer")
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            @*<div class="row">
+                <div class="cell">
+                    <div class="tile-container ribbed-gray">
+                        <div class="tile-wide bg-orange fg-white" data-role="tile">
+                            <div class="tile-content">
+                                <div class="carousel" data-role="carousel" data-controls="false" data-markers="true">
+                                    <div class="slide"><img src="~/images/home/1.jpg"></div>
+                                    <div class="slide"><img src="~/images/home/2.jpg"></div>
+                                    <div class="slide"><img src="~/images/home/3.jpg"></div>
+                                    <div class="slide"><img src="~/images/home/4.jpg"></div>
+                                    <div class="slide"><img src="~/images/home/5.jpg"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tile fg-white" data-role="tile" data-effect="slideLeft">
+                            <div class="tile-content">
+                                <div class="live-slide"><img src="~/images/home/6.jpg" data-role="fitImage" data-format="fill"></div>
+                                <div class="live-slide"><img src="~/images/home/7.jpg" data-role="fitImage" data-format="fill"></div>
+                                <div class="live-slide"><img src="~/images/home/8.jpg" data-role="fitImage" data-format="fill"></div>
+                                <div class="live-slide"><img src="~/images/home/9.jpg" data-role="fitImage" data-format="fill"></div>
+                                <div class="live-slide"><img src="~/images/home/10.jpg" data-role="fitImage" data-format="fill"></div>
+                            </div>
+                        </div>
+
+                        <div class="tile fg-white" data-role="tile" data-effect="slideDown">
+                            <div class="tile-content">
+                                <div class="live-slide"><img src="~/images/home/11.jpg" data-role="fitImage" data-format="fill"></div>
+                                <div class="live-slide"><img src="~/images/home/5.jpg" data-role="fitImage" data-format="fill"></div>
+                                <div class="live-slide"><img src="~/images/home/4.jpg" data-role="fitImage" data-format="fill"></div>
+                                <div class="live-slide"><img src="~/images/home/3.jpg" data-role="fitImage" data-format="fill"></div>
+                                <div class="live-slide"><img src="~/images/home/2.jpg" data-role="fitImage" data-format="fill"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>*@
+        </div>
+        <div class="cell colspan3">
+            <div class="tile-container bg-darkCyan">
+                <div class="tile-small bg-darkCyan fg-white" data-role="tile">
+                    <div class="tile-content iconic">
+                        <span class="icon mif-money"></span>
+                    </div>
+                </div>
+                <p class="sub-header fg-white" style="margin-left:100px">Sản phẩm bán chạy</p>
+            </div>
+                @Html.Action("PartialViewTopSale", "Product")
+            
+
+            <div class="tile-container bg-darkCyan">
+                <div class="tile-small bg-darkCyan fg-white" data-role="tile">
+                    <div class="tile-content iconic">
+                        <span class="icon mif-enter"></span>
+                    </div>
+                </div>
+                <p class="sub-header fg-white" style="margin-left:100px">Sản phẩm mới</p>
+            </div>
+            @Html.Action("PartialViewTopNew", "Product")
+
+            <div class="tile-container bg-darkCyan">
+                <div class="tile-small bg-darkCyan fg-white" data-role="tile">
+                    <div class="tile-content iconic">
+                        <span class="icon mif-eye"></span>
+                    </div>
+                </div>
+                <p class="sub-header fg-white" style="margin-left:100px">Sản phẩm xem nhiều</p>
+            </div>
+            @Html.Action("PartialViewTopView", "Product")
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+

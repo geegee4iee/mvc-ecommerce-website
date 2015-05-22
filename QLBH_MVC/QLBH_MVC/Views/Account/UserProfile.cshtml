@@ -1,0 +1,292 @@
+﻿@using QLBH_MVC.Models
+
+@model UserInfoModel
+
+<div class="grid condensed full-size" style="margin-bottom:0">
+    <div class="row cells6">
+        <div class="cell colspan2">
+            <div class="tabcontrol" style="padding:20px" data-role="tabControl">
+                <ul class="tabs">
+                    <li><a href="#frame_1_1" class="fg-white">Đổi mật khẩu</a></li>
+                    <li><a href="#frame_1_2" class="fg-white">Đổi thông tin cá nhân</a></li>
+                </ul>
+                <div class="frames">
+
+
+                    <div class="frame bg-cyan fg-white" id="frame_1_1">
+                        <form action="" method="post" id="updatePwd">
+                            <h1>Đổi mật khẩu</h1>
+                            <p>
+                                <small>
+                                    Khuyến khích sử dụng những mật khẩu chứa số và ký tự cho độ bảo mật cao, hạn chế sử dụng những mật khẩu đơn giản dễ đoán
+                                </small>
+
+                            </p>
+
+                            <h5 class="text-dashed">Tên tài khoản</h5>
+                            <div class="input-control text full-size" data-role="input" id="formUID">
+                                <input type="text" name="UID" value="@Model.UID" disabled>
+                                <button class="button helper-button clear"><span class="mif-cross"></span></button>
+                            </div>
+                            <h5 class="text-dashed">Mật khẩu</h5>
+                            <div class="input-control password full-size" data-role="input">
+                                <input type="password" name="PWD">
+                                <button class="button helper-button reveal"><span class="mif-looks"></span></button>
+                            </div>
+                            <h5 class="text-dashed">Mật khẩu mới</h5>
+                            <div class="input-control  password  text full-size" data-role="input" id="formUID">
+                                <input type="password" name="NewPWD">
+                                <button class="button helper-button reveal"><span class="mif-looks"></span></button>
+                            </div>
+                            <h5 class="text-dashed">Nhập lại</h5>
+                            <div class="input-control  password  text full-size" data-role="input" id="formUID">
+                                <input type="password" name="ConfirmPWD">
+                                <button class="button helper-button reveal"><span class="mif-looks"></span></button>
+                            </div>
+                            <button class="button" type="submit" id="pwdButton">Đổi mật khẩu</button>
+                        </form>
+                    </div>
+                    <div class="frame bg-cyan fg-white" id="frame_1_2">
+                        <form action="" method="post" id="updateInfo">
+                            <h1>Thông tin cá nhân</h1>
+                            <p>
+                                <small>
+                                    Điều chỉnh thông tin cá nhân của bạn nếu có vấn đề khi giao dịch mua hàng với chúng tôi diễn ra không thuân lợi
+                                </small>
+
+                            </p>
+
+                            <h5 class="text-dashed">Họ và tên</h5>
+                            <div class="input-control text full-size" data-role="input">
+                                <input type="text" name="FullName" value="@Model.FullName">
+                                <button class="button helper-button clear"><span class="mif-cross"></span></button>
+                            </div>
+                            <h5 class="text-dashed">Ngày sinh</h5>
+                            <div class="input-control text full-size" data-role="input">
+                                <input type="text" name="DOB" id="datetimepicker" value="@Model.DOB">
+                            </div>
+                            <h5 class="text-dashed">Email</h5>
+                            <div class="input-control text full-size" data-role="input">
+                                <input type="text" placeholder="name&#64;example.com" name="Email" value="@Model.Email">
+                                <button class="button helper-button clear"><span class="mif-cross"></span></button>
+                            </div>
+                            <h5 class="text-dashed">Số điện thoại</h5>
+                            <div class="input-control text full-size" data-role="input">
+                                <input type="text" name="Phone" value="@Model.Phone">
+                                <button class="button helper-button clear"><span class="mif-cross"></span></button>
+                            </div>
+                            <button class="button" type="submit" id="registerButton">Câp nhập thông tin</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="cell"></div>
+        <div class="cell colspan3" style="padding:20px">
+            <h1 class="fg-white">
+                Đơn hàng đã đặt
+            </h1>
+            <div class="tile-container">
+                @Html.Action("PartialViewUserOrders", "Account")
+            </div>
+        </div>
+    </div>
+</div>
+
+@section css{
+    <link href="~/Scripts/jquery-ui-1.11.4/jquery-ui.structure.min.css" rel="stylesheet" />
+    <link href="~/Scripts/jquery-ui-1.11.4/jquery-ui.theme.min.css" rel="stylesheet" />
+    <link href="~/Scripts/jquery-ui-1.11.4/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/Content/sweetalert.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <style type="text/css">
+        small.error {
+            padding: 3px;
+        }
+    </style>
+}
+
+@section js{
+    <script src="~/Scripts/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+    <script src="~/Scripts/sweetalert.min.js"></script>
+    <script>
+
+
+        $(function () {
+            $("#datetimepicker").datepicker(
+                {
+                    dateFormat: "d/m/yy",
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: "1900:2015",
+                }
+            );
+        });
+
+        function ajaxPost() {
+            var uid = $("input[name='UID']").val();
+            var pwd = $("input[name='PWD']").val();
+            var newPwd = $("input[name='NewPWD'").val()
+            if (uid != '') {
+                $.post("/Account/UserProfile", { "UID": uid, "PWD": pwd, "NewPWD": newPwd, "opt": 1 }, function (data) {
+                    if (data.Error == 1) {
+                        swal("Thất bại!", "Mật khẩu không đúng", "error");
+                    }
+
+                    if (data.Error == 2) {
+                        swal("Thất bại!", "Mật khẩu giống mật khẩu cũ", "error");
+                    }
+
+                    if (data.Success == 1) {
+                        swal("Thành công!", "Đã thay đổi mật khẩu", "success");
+                    }
+                });
+            }
+
+        };
+
+        function ajaxPostInfo() {
+            var uid = $("input[name='UID']").val();
+            var fullname = $("input[name='FullName']").val();
+            var email = $("input[name='Email']").val();
+            var dob = $("input[name='DOB']").val();
+            var phone = $("input[name='Phone']").val();
+            if (uid != '') {
+                $.post("/Account/UserProfile", { "UID": uid, "FullName": fullname, "Email": email, "DOB": dob, "Phone": phone, "opt": 0 }, function (data) {
+                    if (data.Error == 2) {
+                        swal("Thất bại!", "Không thể cập nhập thông tin cá nhân", "error");
+                    }
+
+                    if (data.Success == 2) {
+                        swal("Thành công!", "Đã thay đổi thông tin cá nhân", "success");
+
+                        $(".user-name").text(fullname);
+                    }
+                });
+            }
+
+        };
+
+        //Validator custom date format for date of birth
+        $.validator.addMethod("vndate", function (value, element) {
+            return /^\d\d?\/\d\d?\/\d\d\d\d$/.test(value);
+        });
+
+        //Validator custom the age need to be over 18
+        $.validator.addMethod("adult", function (value, element) {
+            var index = value.length - 4;
+            var year = value.substring(index, value.length);
+            var currentYear = new Date().getFullYear();
+            return (currentYear - year) >= 18;
+        });
+
+        $(function () {
+            $('#updatePwd').validate({
+                rules: {
+                    UID: {
+                        required: true
+                    },
+                    PWD: {
+                        required: true,
+                        minlength: 6
+                    },
+                    NewPWD: {
+                        required: true,
+                        minlength: 6
+                    },
+                    ConfirmPWD: {
+                        required: true,
+                        equalTo: $("[name='NewPWD']")
+                    }
+                },
+                messages: {
+                    UID: {
+                        required: 'Chưa nhập tên đăng nhập'
+                    },
+                    PWD: {
+                        required: 'Chưa nhập mật khẩu',
+                        minlength: 'Mật khẩu phải dài hơn 6 ký tự'
+                    },
+                    NewPWD: {
+                        required: 'Chưa nhập mật khẩu mới',
+                        minlength: 'Mật khẩu phải dài hơn 6 ký tự'
+                    },
+                    ConfirmPWD: {
+                        required: 'Chưa nhập lại mật khẩu',
+                        equalTo: 'Mật khẩu nhập lại chưa chính xác'
+                    }
+
+                },
+                errorElement: 'small',
+                errorClass: 'place-right fg-yellow error',
+                highlight: function (element) {
+                    $(element).closest('.input-control').addClass('error');
+                },
+                submitHandler: function (form) {
+                    ajaxPost();
+                },
+                success: function (label) {
+                    label.closest('.input-control').removeClass('error');
+                    label.remove();
+                }
+            });
+        });
+
+        $(function () {
+            $('#updateInfo').validate({
+                rules: {
+                    FullName: {
+                        required: true,
+                    },
+                    DOB: {
+                        required: true,
+                        vndate: true,
+                        adult: true
+                    },
+                    Email: {
+                        required: true,
+                        email: true
+                    },
+                    Phone: {
+                        required: true,
+                        digits: true,
+                        minlength: 8
+                    }
+
+                },
+                messages: {
+                    FullName: {
+                        required: 'Chưa nhập họ tên'
+                    },
+                    DOB: {
+                        required: 'Chưa nhập ngày sinh',
+                        vndate: 'Ngày sinh không đúng định dạng',
+                        adult: 'Phải trên 18 tuổi'
+                    },
+                    Email: {
+                        required: 'Chưa nhập email',
+                        email: 'Email không hợp lệ'
+                    },
+                    Phone: {
+                        required: 'Chưa nhập số điện thoại',
+                        digits: 'Số điện thoại không hợp lệ',
+                        minlength: 'Số điện thoại dài tối thiểu 8 ký tự'
+                    }
+                },
+                errorElement: 'small',
+                errorClass: 'place-right fg-yellow error',
+                highlight: function (element) {
+                    $(element).closest('.input-control').addClass('error');
+                },
+                submitHandler: function (form) {
+                    ajaxPostInfo();
+                },
+                success: function (label) {
+                    label.closest('.input-control').removeClass('error');
+                    label.remove();
+                }
+            });
+        });
+    </script>
+}

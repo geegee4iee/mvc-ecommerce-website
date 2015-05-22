@@ -1,0 +1,177 @@
+﻿@using QLBH_MVC.Models
+
+@model List<SessionCartProduct>
+
+<table class="table dataTable striped hovered bg-white">
+    <thead>
+        <tr>
+            <th>
+                Mã sản phẩm
+            </th>
+            <td>
+                Tên
+            </td>
+            <th>
+                Hình ảnh
+            </th>
+            <th>
+                Số lượng
+            </th>
+            <th class="sortable-column sort-desc">
+                Giỏ hàng
+            </th>
+            <th>
+                Xóa
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (SessionCartProduct proc in Model)
+        {
+            <tr>
+                <td>
+                    @proc.Id
+                </td>
+                <td>
+                    @proc.Name
+                </td>
+                <td>
+                    <img style="height:50px" src="~/images/product/@proc.Id/img.jpg" />
+                </td>
+                <td>
+                    @proc.Amount / @proc.Quantity
+                </td>
+                <td style="text-align:center">
+                    <div class="input-control text" data-role="input" style="width:100px;min-width:130px">
+                        <input type="text" name="Amount" id="inputCart_@proc.Id">
+                        <a class="button add-cart-table" data-id="@proc.Id"><span class="mif-anchor"></span></a>
+                    </div>
+                </td>
+                <td style="text-align:center">
+                    <button class="button remove-cart-table" data-id="@proc.Id"><span class="mif-cross"></span></button>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div style="height:15px">
+    <div data-role="preloader" id="table-preloader" data-type="metro"></div>
+</div>
+
+<div class="row cells3">
+    <div class="cell">
+        <table class="table dataTable striped hovered bg-white">
+            <thead>
+                <tr>
+                    <th>
+                        Tổng kết
+                    </th>
+                    <td></td>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        Tổng tiền
+                    </td>
+                    <td>
+                        @(Model.Count == 0 ? "" : string.Format("{0:0,0}", ViewBag.TotalPrice) + "đ")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Tổng sản phẩm
+                    </td>
+                    <td>
+                        @(Model.Count == 0 ? "" : ViewBag.Total + " món")
+                    </td>
+                </tr>
+                @if (Model.Count == 0) { }
+                else
+                {
+                    <tr>
+                        <td colspan="2">
+                            <button class="button create-order">Đặt hàng</button>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+        
+    </div>
+    <div class="cell">
+        
+    </div>
+</div>
+<script>
+
+    $('#table-preloader').hide();
+
+    $(".create-order").click(function () {
+        $('#table-preloader').show();
+        $.post("/Cart/AddOrder",null, function (data) {
+            $('#cart-status').text(0);
+            if (data.Status == false) {
+            }
+            else {
+                setTimeout(function () {
+                    $.Notify({ type: 'success', caption: 'Thêm đơn hàng', content: "thành công" });
+                }, 200);
+            }
+
+            $('#cart-list').load("/Cart/PartialList");
+            $('#table-cart-list').load("/Cart/PartialListTable");
+        });
+    });
+
+    $(".remove-cart-table").click(function () {
+        $('#table-preloader').show();
+        var procId = $(this).attr("data-id");
+        if (procId != '') {
+            $.post("/Cart/RemoveProduct", { "id": procId }, function (data) {
+                $('#cart-status').text(data.Cart.Total);
+                if (data.Status == false) {
+                }
+                else {
+                    setTimeout(function () {
+                        $.Notify({ type: 'success', caption: 'Đã xóa', content: "thành công" });
+                    }, 200);
+                }
+
+            });
+        };
+
+        $('#cart-list').load("/Cart/PartialList");
+        $('#table-cart-list').load("/Cart/PartialListTable");
+    });
+
+    $(".add-cart-table").on("click", function () {
+        $('#table-preloader').show();
+        var procId = $(this).attr("data-id");
+        var inputId = "#inputCart_" + procId;
+        var amount = $(inputId).val();
+        if (procId != '' && amount != '') {
+            $.post("/Cart/UpdateProduct", { "id": procId, "amount": amount }, function (data) {
+                $('#cart-status').text(data.Cart.Total);
+                if (data.Status == false) {
+                    setTimeout(function () {
+                        $.Notify({ type: 'alert', caption: 'Vượt quá số lượng', content: "hiện có" });
+                    }, 200);
+                }
+                else {
+                    setTimeout(function () {
+                        $.Notify({ type: 'success', caption: 'Đã cập nhập', content: "thành công" });
+                    }, 200);
+                }
+
+            });
+        }
+
+        $('#cart-list').load("/Cart/PartialList");
+        $('#table-cart-list').load("/Cart/PartialListTable");
+    });
+</script>
+

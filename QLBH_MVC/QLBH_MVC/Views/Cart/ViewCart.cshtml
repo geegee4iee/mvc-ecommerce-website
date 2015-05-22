@@ -1,0 +1,16 @@
+﻿@using QLBH_MVC.Models
+
+@model SessionCart
+
+<div class="grid condensed">
+    <div class="row cells6">
+        <div class="cell"></div>
+        <div class="cell colspan4">
+            <h1 class="fg-white">Giỏ hàng</h1>
+            <div id="table-cart-list">
+                @Html.Action("PartialListTable","Cart")
+            </div>
+            
+        </div>
+    </div>
+</div>

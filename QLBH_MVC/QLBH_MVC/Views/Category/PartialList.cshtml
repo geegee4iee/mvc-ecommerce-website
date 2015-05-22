@@ -1,0 +1,23 @@
+﻿@using QLBH_MVC.Models
+
+@model List<category>
+
+
+
+
+
+@foreach (category c in Model)
+{
+    <li>
+        <a class="title" href="@Url.Action("ByCat", "Product", new { id=c.CatId })">
+            <span data-role="hint" data-hint-background="bg-green"
+                  data-hint-color="fg-white"
+                  data-hint-mode="2"
+                  data-hint="Số lượng sản phẩm|@c.products.Count">@c.CatName</span>
+        </a>
+    </li>
+
+}
+
+
+

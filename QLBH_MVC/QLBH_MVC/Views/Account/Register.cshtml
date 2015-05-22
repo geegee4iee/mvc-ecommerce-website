@@ -1,0 +1,298 @@
+﻿@using QLBH_MVC.Models
+@using BotDetect.Web.UI.Mvc
+
+@model RegisterModel
+<div class="bg-darkCyan">
+    <div class="grid condensed bg-darkCyan" style="margin-top:3.125rem;margin-bottom:0;background:repeat">
+        <div class="row cells6">
+            <div class="cell">
+                <div class="tile-container bg-darkCyan">
+
+
+                </div>
+            </div>
+            <div class="cell colspan2  fg-grayLighter">
+                <h1>Tạo tài khoản</h1>
+                <p>
+                    <small>
+                        Bằng cách tạo <span class="fg-cyan sub-alt-header">tài khoản</span>, bạn mới có thể được phép mua hàng trong hệ thống cửa hàng của chúng tôi.
+                        Bạn có thể dùng <span class="fg-cyan sub-alt-header">tài khoản</span> của mình để truy cập giỏ hàng và đặt hàng trực tiếp trên hệ thống website, cực kì tiện dụng.
+                        Sử dụng <span class="fg-cyan sub-alt-header">tài khoản</span> đã tạo để <a class="fg-pink text-dashed sub-alt-header" href="/">đăng nhập</a>
+                    </small>
+
+                </p>
+                <form action="" method="post" id="registerForm">
+                    <h5 class="text-dashed">Tên tài khoản</h5>
+                    <div class="input-control text full-size" data-role="input" id="formUID">
+                        <input type="text" name="UID">
+                        <small id="error-exists" class="place-right fg-yellow error">@(ViewBag.Error == "Tài khoản đã tồn tại" ? ViewBag.Error : "")</small>
+                        <button class="button helper-button clear"><span class="mif-cross"></span></button>
+                    </div>
+                    <h5 class="text-dashed">Mật khẩu</h5>
+                    <div class="input-control password full-size" data-role="input">
+                        <input type="password" name="PWD">
+                        <button class="button helper-button reveal"><span class="mif-looks"></span></button>
+                    </div>
+                    <h5 class="text-dashed">Nhập lại mật khẩu</h5>
+                    <div class="input-control password full-size" data-role="input">
+                        <input type="password" name="ConfirmPWD">
+                        <button class="button helper-button reveal"><span class="mif-looks"></span></button>
+                    </div>
+                    <h5 class="text-dashed">Họ và tên</h5>
+                    <div class="input-control text full-size" data-role="input">
+                        <input type="text" name="FullName">
+                        <button class="button helper-button clear"><span class="mif-cross"></span></button>
+                    </div>
+                    <h5 class="text-dashed">Ngày sinh</h5>
+                    <div class="input-control text full-size" data-role="input">
+                        <input type="text" name="DOB" id="datetimepicker">
+                    </div>
+                    <h5 class="text-dashed">Email</h5>
+                    <div class="input-control text full-size" data-role="input">
+                        <input type="text" placeholder="name&#64;example.com" name="Email">
+                        <button class="button helper-button clear"><span class="mif-cross"></span></button>
+                    </div>
+                    <h5 class="text-dashed">Số điện thoại</h5>
+                    <div class="input-control text full-size" data-role="input">
+                        <input type="text" name="Phone">
+                        <button class="button helper-button clear"><span class="mif-cross"></span></button>
+                    </div>
+
+                    <div class="input-control full-size">
+                        @{ MvcCaptcha sampleCaptcha = new MvcCaptcha("SampleCaptcha");
+                         sampleCaptcha.UserInputClientID = "CaptchaCode"; }
+                        @Html.Captcha(sampleCaptcha)
+                        
+                    </div>
+                    <div style="padding-bottom:5px">
+                        <small class="status fg-white error" id="status">Not checked yet</small>
+                    </div>
+
+                    
+                    <h5 class="text-dashed" >Mã xác nhận</h5>
+                    <div class="input-control text full-size" data-role="input">
+                        <input id="CaptchaCode" name="CaptchaCode" type="text"  />
+                    </div>
+                    <button class="button" type="submit" id="registerButton">Đăng ký</button>
+                </form>
+            </div>
+            <div class="cell"></div>
+            <div class="cell colspan2">
+                <div class="row cells2">
+                    <div class="cell">
+                        <div class="image-container bordered handing ani image-format-hd" style="margin-top:3.125rem">
+                            <div class="frame">
+                                <img src="~/images/home/4.jpg">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="fg-grayLighter" style="padding-right:20px">
+                    <p>
+                        <h1 class="fg-grayLighter">Trải nghiệm hệ thống mua hàng cực kì thú vị</h1>
+
+                        <span class="sub-alt-header">Hàng nghìn</span> <small>sản phẩm tốt nhất từ cửa hàng chúng tôi luôn chờ đợi bạn đến để khám phá</small>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section css{
+<link href="@BotDetect.Web.CaptchaUrls.Absolute.LayoutStyleSheetUrl" rel="stylesheet" type="text/css" />
+    <link href="~/Scripts/jquery-ui-1.11.4/jquery-ui.structure.min.css" rel="stylesheet" />
+    <link href="~/Scripts/jquery-ui-1.11.4/jquery-ui.theme.min.css" rel="stylesheet" />
+    <link href="~/Scripts/jquery-ui-1.11.4/jquery-ui.min.css" rel="stylesheet" />
+<link href="~/Content/sweetalert.css" rel="stylesheet" />
+    <style type="text/css">
+        small.error{
+            padding: 3px;
+        }
+    </style>
+}
+
+@section js{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+<script src="~/Scripts/sweetalert.min.js"></script>
+    <script>
+
+        $(function () {
+            $("#datetimepicker").datepicker(
+                {
+                    dateFormat: "d/m/yy",
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: "1900:2015",
+                }
+            );
+
+            $('#status').hide();
+        });
+
+
+        function checkCaptcha() {
+            $('#status').show();
+            $('#status').text('Đang kiểm tra...');
+
+            // get client-side Captcha object instance
+            var captchaObj = $("#CaptchaCode").get(0).Captcha;
+
+            // gather data required for Captcha validation
+            var params = {}
+            params.CaptchaId = captchaObj.Id;
+            params.InstanceId = captchaObj.InstanceId;
+            params.UserInput = $("#CaptchaCode").val();
+
+            // make asynchronous Captcha validation request
+            $.getJSON('/Account/CheckCaptcha', params, function (result) {
+                if (true === result) {
+                    $('#status').hide();
+                    ajaxRegister();
+                } else {
+                    $('#status').attr('class', 'fg-yellow');
+                    $('#status').text('Mã captcha nhập sai, mời nhập lại');
+                    // always change Captcha code if validation fails
+                    captchaObj.ReloadImage();
+                }
+            });
+        }
+
+        function ajaxRegister() {
+
+            var uid = $("input[name='UID']").val();
+            var pwd = $("input[name='PWD']").val();
+            var fullname = $("input[name='FullName']").val();
+            var email = $("input[name='Email']").val();
+            var dob = $("input[name='DOB']").val();
+            var phone = $("input[name='Phone']").val();
+
+            var params = {}
+            params.uid = uid;
+            params.pwd = pwd;
+            params.fullname = fullname;
+            params.email = email;
+            params.dob = dob;
+            params.phone = phone;
+
+            if (uid != '') {
+                $.post("/Account/Register",params, function (data) {
+                    if (true === data) {
+                        swal("Thành công!", "Đã đăng ký thành công", "success");
+                        setTimeout(function () {
+                            window.location.href = "/Account/Login";
+                        }, 1000);
+                       
+                    } else {
+                        swal("Thất bại!", "Tên tài khoản đã tồn tại", "error");
+                    }
+                });
+            }
+
+        };
+
+        //Hide the error existing username
+        $("input[name='UID']").change(function () {
+            $('#error-exists').hide();
+        });
+
+        //Validator custom date format for date of birth
+        $.validator.addMethod("vndate", function (value, element) {
+            return /^\d\d?\/\d\d?\/\d\d\d\d$/.test(value);
+        });
+
+        //Validator custom the age need to be over 18
+        $.validator.addMethod("adult", function (value, element) {
+            var index = value.length - 4;
+            var year = value.substring(index, value.length);
+            var currentYear = new Date().getFullYear();
+            return (currentYear - year) >= 18;
+        });
+
+        //Validator Jquery
+        $(function () {
+            $('#registerForm').validate({
+                rules: {
+                    UID: {
+                        required: true
+                    },
+                    PWD: {
+                        required: true,
+                        minlength: 6
+                    },
+                    ConfirmPWD: {
+                        required: true,
+                        equalTo: $("[name='PWD']")
+                    },
+                    FullName: {
+                        required: true,
+                    },
+                    DOB: {
+                        required: true,
+                        vndate: true,
+                        adult: true
+                    },
+                    Email: {
+                        required: true,
+                        email: true
+                    },
+                    Phone: {
+                        required: true,
+                        digits: true,
+                        minlength: 8
+                    }
+
+                },
+                messages: {
+                    UID: {
+                        required: 'Chưa nhập tên đăng nhập'
+                    },
+                    PWD: {
+                        required: 'Chưa nhập mật khẩu',
+                        minlength: 'Mật khẩu phải dài hơn 6 ký tự'
+                    },
+                    ConfirmPWD: {
+                        required: 'Chưa nhập lại mật khẩu',
+                        equalTo: 'Mật khẩu nhập lại chưa chính xác'
+                    },
+                    FullName: {
+                        required: 'Chưa nhập họ tên'
+                    },
+                    DOB: {
+                        required: 'Chưa nhập ngày sinh',
+                        vndate: 'Ngày sinh không đúng định dạng',
+                        adult: 'Phải trên 18 tuổi'
+                    },
+                    Email: {
+                        required: 'Chưa nhập email',
+                        email: 'Email không hợp lệ'
+                    },
+                    Phone: {
+                        required: 'Chưa nhập số điện thoại',
+                        digits: 'Số điện thoại không hợp lệ',
+                        minlength: 'Số điện thoại dài tối thiểu 8 ký tự'
+                    }
+
+                },
+                errorElement: 'small',
+                errorClass: 'place-right fg-yellow error',
+                highlight: function (element) {
+                    $(element).closest('.input-control').addClass('error');
+                },
+                submitHandler: function (form) {
+                    checkCaptcha();
+                },
+                success: function (label) {
+                    label.closest('.input-control').removeClass('error');
+                    label.remove();
+                }
+            });
+        });
+
+
+    </script>
+}
+

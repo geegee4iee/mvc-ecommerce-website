@@ -1,0 +1,127 @@
+﻿@using QLBH_MVC.Models
+@using QLBH_MVC.Utils
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cửa hàng túi xách</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    
+    <link href="~/Content/metro-icons.min.css" rel="stylesheet" />
+    <link href="~/Content/metro.min.css" rel="stylesheet" />
+    <link href="~/Content/metro-custom.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-2.1.3.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/metro.min.js"></script>
+    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+
+    @RenderSection("css", false)
+    <style type="text/css">
+        html {
+            height: 100%;
+        }
+    </style>
+</head>
+<body style="margin:0;padding:0;height:100%" class="bg-white">
+    <div style="min-height:100%;position:relative">
+
+        <header class="app-bar fixed-top bg-darker" data-role="appbar">
+            <a class="app-bar-element branding">ADMIN</a>
+
+            <ul class="app-bar-menu">
+                <li><a href="/">Trang chủ</a></li>
+                @if (CurrentContext.IsLogged() == false)
+                {
+                }
+                else
+                {
+                    SessionUser a = (SessionUser)Html.ViewContext.HttpContext.Session["User"];
+                    <li>
+                        <a href="" class="dropdown-toggle">Xin chào <span class="user-name">@a.Name</span> </a>
+                        <ul class="d-menu" data-role="dropdown">
+                            <li class="divider"></li>
+                            <li>
+                                <a href="@Url.Action("UserProfile","Account")">Thông tin cá nhân</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Logout","Account")">Đăng xuất</a>
+                            </li>
+                        </ul>
+                    </li>
+                }
+            </ul>
+            <ul class="app-bar-menu place-right"></ul>
+
+            <span class="app-bar-pull"></span>
+        </header>
+        <div class="main-side-bar bg-dark">
+            <div class="tile-container">
+                <a href="/Admin/Index">
+                    <div class="tile-wide fg-white" data-role="tile">
+                        <div class="tile-content slide-up">
+                            <div class="slide">
+                                <img src="~/images/home/3.jpg" data-role="fitImage" data-format="hd">
+                            </div>
+                            <div class="slide-over op-dark text-small padding10">
+                                Truy cập Dashboard để xem những thông tin tổng hợp về website, dễ dàng thống kê dữ liệu cho cửa hàng
+                            </div>
+                            <div class="tile-label fg-white bg-darker">Dashboard</div>
+                        </div>
+                    </div>
+                </a>
+               
+                <a href="/Admin/Category">
+                    <div class="tile bg-green fg-white" data-role="tile">
+                        <div class="tile-content iconic">
+                            <span class="icon mif-cabinet"></span>
+                            <span class="tile-label">Loại sản phẩm</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="/Admin/Manufacturer">
+                    <div class="tile bg-cyan fg-white" data-role="tile">
+                        <div class="tile-content iconic">
+                            <span class="icon mif-cabinet"></span>
+                            <span class="tile-label">Nhà sản xuất</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="/Admin/Product">
+                    <div class="tile-wide bg-orange fg-white" data-role="tile">
+                        <div class="tile-content iconic">
+                            <span class="icon mif-widgets"></span>
+                            <span class="tile-label">Sản phẩm</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="/Admin/Order">
+                    <div class="tile-wide bg-indigo fg-white" data-role="tile">
+                        <div class="tile-content iconic">
+                            <span class="icon mif-event-available"></span>
+                            <span class="tile-label">Đơn hàng</span>
+                        </div>
+                    </div>
+                </a>
+                
+            </div>
+        </div>
+
+
+
+        <div style="padding-bottom:200px;width:75%;margin-top:3.125rem;margin-left:320px;">
+                        @RenderBody()
+        </div>
+    </div>
+
+
+
+    <script>
+
+    </script>
+
+    @RenderSection("js", false)
+</body>
+</html>

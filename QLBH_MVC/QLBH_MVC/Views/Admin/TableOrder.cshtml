@@ -1,0 +1,157 @@
+﻿@using QLBH_MVC.Models
+
+@model List<order>
+<div id="page-info" data-id="@ViewBag.CurPage"></div>
+<table class="table hovered ">
+    <thead>
+        <tr>
+            <th>Mã</th>
+            <th>Ngày đặt</th>
+            <th>Trạng thái</th>
+            <th>Tổng tiền</th>
+            <th>Người đặt</th>
+            <th>Số ĐT</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (order c in Model)
+        {
+            <tr class="@(c.OrderStatus == 0 ? "" : "bg-dark fg-white") ">
+                <td>
+                    @c.OrderId
+                </td>
+                <td>
+                    @c.OrderDate.ToShortDateString()
+                </td>
+                <td>@(c.OrderStatus == 0 ? "Chưa giao" : "Đã giao")</td>
+                <td>@c.Total</td>
+                <td>@c.user.Name</td>
+                <td>@c.user.Phone</td>
+                <td>
+                    <button style="display:@(c.OrderStatus==0?"":"none")" class="button update-ord-btn" type="button" data-id="@c.OrderId"><span class="mif-drive-eta"></span>&nbsp;Giao hàng</button>
+                </td>
+                <td>
+                    <button class="button remove-ord-btn" data-id="@c.OrderId"><span class="mif-cross"></span></button>
+                </td>
+                <td>
+                    <button class="button see-ord-btn" data-id="@c.OrderId" data-flag="0"><span class="mif-eye"></span></button>
+                </td>
+
+            </tr>
+            <tr class="detail-tiles" style="display:none;" data-id="@c.OrderId" id="@c.OrderId">
+                <td colspan="9">
+                    <div class="tile-container">
+                        @{ List<orderdetail> lstOrd = c.orderdetails.ToList();}
+                        @foreach (orderdetail o in lstOrd)
+                        {
+                            <div class="tile bg-transparent fg-white text-shadow" data-role="tile">
+                                <div class="tile-content slide-up">
+                                    <div class="slide">
+                                        <img src="~/images/product/@o.ProId/img.jpg"  data-format="square">
+                                    </div>
+                                    <div class="slide-over op-cyan text-small padding10">
+                                        Mã sản phẩm @o.ProId<br/>
+                                        Thuộc chi tiết đơn hàng
+                                    </div>
+                                    <div class="tile-badge bg-red fg-white">@o.Amount</div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a data-id="@(ViewBag.CurPage - 1)" class="button @(ViewBag.CurPage == 1 ? "disabled" : "") btn-page-load"><</a>
+@for (int i = 1; i <= ViewBag.PageCount; i++)
+{
+    <a data-id="@i" class="button @(ViewBag.CurPage == i ? "disabled" : "") btn-page-load">@i</a>
+}
+<a data-id="@(ViewBag.CurPage + 1)" class="button @(ViewBag.CurPage == ViewBag.PageCount ? "disabled" : "") btn-page-load">></a>
+
+
+
+
+
+
+<script>
+    //$(document).ready(function () {
+    //    $('.detail-tiles').hide();
+    //});
+
+    $('.see-ord-btn').click(function () {
+        var id = $(this).attr('data-id');
+
+        var strId = '#' + id;
+       
+
+        var flag = $(this).data('flag');
+        if (flag == 1) {
+            $(strId).hide();
+            $(this).data('flag', 0);
+            return;
+        }
+        if (flag == 0) {
+            $(strId).css('display','table-row');
+            $(this).data('flag', 1);
+            return;
+        }
+
+    });
+
+    $('.btn-page-load').click(function () {
+        page = $(this).attr('data-id');
+        $('#tableOrder').load("/Admin/TableOrder", { page: page });
+    });
+
+
+    $('.update-ord-btn').click(function () {
+        var id = $(this).attr("data-id");
+        $.post("/Admin/UpdateOrder", { "Id": id }, function (data) {
+            if (data.Error) {
+                setTimeout(function () {
+                    $.Notify({ type: 'alert', caption: 'Lỗi', content: data.Error });
+                }, 200);
+            }
+
+            if (data.Success) {
+                setTimeout(function () {
+                    $.Notify({ type: 'success', caption: 'Thành công', content: data.Success });
+                }, 200);
+
+                page = $('#page-info').attr('data-id');
+                $('#tableOrder').load("/Admin/TableOrder", { page: page });
+            }
+        });
+    });
+
+    $('.remove-ord-btn').click(function () {
+        var id = $(this).attr("data-id");
+        $.post("/Admin/RemoveOrder", { "Id": id }, function (data) {
+            if (data.Error != '') {
+                setTimeout(function () {
+                    $.Notify({ type: 'alert', caption: 'Lỗi', content: data.Error });
+                }, 200);
+            }
+
+            if (data.Success != '') {
+                setTimeout(function () {
+                    $.Notify({ type: 'success', caption: 'Thành công', content: data.Success });
+                }, 200);
+
+                page = $('#page-info').attr('data-id');
+                $('#tableOrder').load("/Admin/TableOrder", { page: page });
+            }
+
+
+        });
+
+
+    })
+
+
+</script>

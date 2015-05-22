@@ -1,0 +1,176 @@
+﻿@using QLBH_MVC.Models
+@using QLBH_MVC.Utils
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cửa hàng túi xách</title>
+
+    <link href="~/Content/metro-icons.min.css" rel="stylesheet" />
+    <link href="~/Content/metro.min.css" rel="stylesheet" />
+    <link href="~/Content/metro-custom.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-2.1.3.min.js"></script>
+    <script src="~/Scripts/metro.min.js"></script>
+    @RenderSection("css", false)
+    <style type="text/css">
+        html {
+            height: 100%;
+        }
+    </style>
+</head>
+<body onload="init()" style="margin:0;padding:0;height:100%" class="bg-darkCyan">
+    <div style="min-height:100%;position:relative">
+
+        <header class="app-bar fixed-top" data-role="appbar">
+            <a class="app-bar-element branding">BAG STORE</a>
+
+            <ul class="app-bar-menu">
+                <li><a href="/">Trang chủ</a></li>
+                <li>
+                    <a href="" class="dropdown-toggle">Sản phẩm</a>
+                    <ul class="d-menu" data-role="dropdown">
+                        <li class="divider"></li>
+                        <li>
+                            <a href="" class="dropdown-toggle">Theo loại</a>
+                            <ul class="d-menu" data-role="dropdown">
+                                @Html.Action("PartialList", "Category")
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="" class="dropdown-toggle">Theo nhà sản xuất</a>
+                            <ul class="d-menu" data-role="dropdown">
+                                @Html.Action("PartialList", "Manufacturer")
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                @{SessionCart cart = (SessionCart)@Html.ViewContext.HttpContext.Session["Cart"];}
+                <li>
+                    <a href="" class="dropdown-toggle"><span class="mif-cart">&nbsp;</span><span class="bg-red fg-white" style="padding:0.25rem 0.625rem" id="cart-status">@(cart != null ? cart.Total : 0)</span>&nbsp;</a>
+                    <ul class="d-menu" data-role="dropdown" id="cart-list">
+                        @Html.Action("PartialList", "Cart")
+                    </ul>
+                </li>
+                @if (CurrentContext.IsLogged() == false)
+                {
+                    <li><a href="@Url.Action("Register","Account")">Đăng ký</a></li>
+                    <li><a href="@Url.Action("Login","Account")">Đăng nhập</a></li>
+                }
+                else
+                {
+                    SessionUser a = (SessionUser)Html.ViewContext.HttpContext.Session["User"];
+                    <li>
+                        <a href="" class="dropdown-toggle">Xin chào <span class="user-name">@a.Name</span> </a>
+                        <ul class="d-menu" data-role="dropdown">
+                            <li class="divider"></li>
+                            <li>
+                                <a href="@Url.Action("UserProfile","Account")">Thông tin cá nhân</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Logout","Account")">Đăng xuất</a>
+                            </li>
+                            @if (a.Permission == 1)
+                            {
+                                <li>
+                                    <a href="@Url.Action("Index","Admin")">Trang quản trị</a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                }
+            </ul>
+            <ul class="app-bar-menu place-right">
+                <li>
+                    <form action="/Product/Search/" method="get">
+                        <div class="input-control select">
+                            @Html.DropDownList("selection", new List<SelectListItem>() {
+                        new SelectListItem { Text="Tìm tất cả", Value = "0"},
+                        new SelectListItem { Text="Tìm theo loại", Value = "1"},
+                        new SelectListItem { Text="Tìm theo nhà sản xuất",Value="2"},
+                        new SelectListItem { Text="Tìm theo tên", Value = "3"},
+                        new SelectListItem { Text="Tìm theo mô tả", Value = "4"},
+                        new SelectListItem { Text="Tìm theo giá lớn hơn hoặc bằng", Value = "5"},
+                        new SelectListItem { Text="Tìm theo giá nhỏ hơn hoặc bằng", Value = "6"},
+                        new SelectListItem { Text="Tìm theo số lượng lớn hơn hoặc bằng", Value = "7"},
+                        new SelectListItem { Text="Tìm theo số lượng nhỏ hơn hoặc bằng", Value = "8"},
+                    }, new { @class = "bg-cyan fg-white", @style = "width:200px" })
+                        </div>
+
+                        <div class="input-control text">
+                            <input id="searchbox" class="bg-transparent fg-white" type="text" name="id">
+                            <button class="button fg-cyan"><span class="mif-search"></span></button>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+            <span class="app-bar-pull"></span>
+        </header>
+
+        <div style="padding-bottom:200px;width:100%;margin-top:3.125rem">
+            @RenderBody()
+        </div>
+
+        <div style="width:100%;position:absolute;bottom:0;left:0">
+
+            <div>
+                <div class="presenter" data-role="presenter" data-height="100" data-easing="easeInExpo">
+                    <div class="scene">
+                        <div class="act ribbed-darkEmerald fg-white">
+                            <h1 class="actor" data-position="10,10">Thông tin website</h1>
+                            <p class="actor" data-position="70,10">Được thực hiện bởi Huỳnh Chánh Kiệt</p>
+                            <p class="actor" data-position="95,10">Sử dụng bộ CSS <a class="fg-yellow" href="http://metroui.org.ua/">Metro</a></p>
+
+                            <img src="~/images/home/5.jpg" class="actor" data-position="10,500" style="height: 130px">
+                            <img src="~/images/home/6.jpg" class="actor" data-position="50,800" style="height: 100px">
+                            <img src="~/images/home/7.jpg" class="actor" data-position="30,990" style="height: 80px">
+                        </div>
+                        <div class="act ribbed-grayDark fg-white">
+                            <h1 class="actor" data-position="10,10">Liên hệ cửa hàng</h1>
+                            <p class="actor" data-position="70,10">Phone <span class="fg-amber">+1900-1560</span></p>
+                            <p class="actor" data-position="95,10">Địa chỉ: 18/5 Phường 12, đường Võ Thị Sáu</p>
+                            <img src="~/images/home/8.jpg" class="actor" data-position="10,500" style="height: 130px">
+                            <img src="~/images/home/9.jpg" class="actor" data-position="50,750" style="height: 100px">
+                            <img src="~/images/home/10.jpg" class="actor" data-position="30,950" style="height: 80px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        $(function () {
+            $(".add-cart").click(function () {
+                var procId = $(this).attr("data-id");
+
+                if (procId != '') {
+                    $.post("/Cart/AddProduct", { "id": procId }, function (data) {
+                        $('#cart-status').text(data.Cart.Total);
+
+                        if (data.Status == false) {
+                            setTimeout(function () {
+                                $.Notify({ type: 'alert', caption: 'Vượt quá số lượng', content: "hiện có" });
+                            }, 200);
+                        }
+                        else {
+                            setTimeout(function () {
+                                $.Notify({ type: 'success', caption: 'Đã thêm', content: "vào giỏ hàng" });
+                            }, 200);
+                        }
+
+                    });
+                };
+
+                $('#cart-list').load("/Cart/PartialList");
+
+            });
+        });
+    </script>
+
+    @RenderSection("js", false)
+</body>
+</html>

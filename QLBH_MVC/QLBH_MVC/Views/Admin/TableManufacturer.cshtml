@@ -1,0 +1,161 @@
+﻿@using QLBH_MVC.Models
+
+@model List<manufacturer>
+<div id="tableCategory">
+    <button class="button add-cat-btn" type="button" data-toggle="modal" data-target="#addModal"><span class="mif-play"></span>&nbsp;Thêm nhà sản xuất</button>
+    <table class="table striped hovered">
+        <thead>
+            <tr>
+                <th>Mã</th>
+                <th>Tên nhà sản xuất</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (manufacturer c in Model)
+            {
+                <tr>
+                    <td>
+                        @c.MaId
+                    </td>
+                    <td>
+                        @c.MaName
+                    </td>
+                    <td>
+                        <button class="button update-ma-btn" type="button" data-id="@c.MaId" data-toggle="modal" data-target="#myModal"><span class="mif-pencil"></span></button>
+                    </td>
+                    <td>
+                        <button class="button remove-ma-btn" data-id="@c.MaId"><span class="mif-cross"></span></button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Chỉnh sửa nhà sản xuất</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="input-control text">
+                        <input id="modal-label-name" disabled />
+                    </div>
+                    <div class="input-control text">
+                        <input name="MaName" placeholder="Nhập tên bạn muốn..." />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" id="closeModalUpdate" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary btn-update-ma">Lưu thay đổi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade " id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Thêm nhà sản xuất</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="input-control text">
+                        <input name="AddMaName" placeholder="Nhập tên bạn muốn..." />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary btn-add-ma">Thêm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script>
+    function hideModal() {
+        $("#myModal").removeClass("in");
+        $("#addModal").removeClass("in");
+        $(".modal-backdrop").remove();
+        $("#myModal").hide();
+        $("#addModal").hide();
+        $('body').removeClass("modal-open");
+    }
+
+    $('.update-ma-btn').click(function () {
+        var id = $(this).attr("data-id");
+        $("#modal-label-name").val(id);
+    });
+
+    $('.remove-ma-btn').click(function () {
+        var id = $(this).attr("data-id");
+        $.post("/Admin/RemoveManufacturer", { "Id": id }, function (data) {
+            if (data.Error != '') {
+                setTimeout(function () {
+                    $.Notify({ type: 'alert', caption: 'Lỗi', content: data.Error });
+                }, 200);
+            }
+
+            if (data.Success != '') {
+                setTimeout(function () {
+                    $.Notify({ type: 'success', caption: 'Thành công', content: data.Success });
+                }, 200);
+            }
+
+
+        });
+
+        $('#tableCategory').load("/Admin/TableManufacturer");
+    })
+
+    $('.btn-add-ma').click(function () {
+        var newName = $("input[name='AddMaName']").val();
+
+        if (newName != '') {
+            $.post("/Admin/AddManufacturer", { "name": newName }, function (data) {
+                if (data.Success != '') {
+                    setTimeout(function () {
+                        $.Notify({ type: 'success', caption: 'Thành công', content: data.Success });
+                    }, 200);
+                }
+            });
+        }
+
+        hideModal();
+        $('#tableCategory').load("/Admin/TableManufacturer");
+    });
+
+    $('.btn-update-ma').click(function () {
+        var id = $("#modal-label-name").val();
+        var newName = $("input[name='MaName']").val();
+
+        if (newName != '') {
+            $.post("/Admin/UpdateManufacturer", { "MaId": id, "MaName": newName }, function (data) {
+                setTimeout(function () {
+                    $.Notify({ type: 'success', caption: 'Thành công', content: data.Success });
+                }, 200);
+            });
+        }
+
+
+        hideModal();
+        $('#tableCategory').load("/Admin/TableManufacturer");
+    });
+
+
+</script>
+
+
+
+

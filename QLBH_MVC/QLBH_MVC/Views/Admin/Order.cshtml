@@ -1,0 +1,20 @@
+﻿@{
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+
+<div class="grid condensed" style="padding:30px">
+    <div class="row cells6">
+        <div class="cell colspan5">
+
+            <h1>Quản lý đơn hàng</h1>
+            <div id="tableOrder">
+                @Html.Action("TableOrder", "Admin")
+            </div>
+            
+
+        </div>
+    </div>
+
+</div>
+

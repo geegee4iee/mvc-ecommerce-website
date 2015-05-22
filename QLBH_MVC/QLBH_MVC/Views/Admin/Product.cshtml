@@ -1,0 +1,425 @@
+﻿@using QLBH_MVC.Models
+@{
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+
+<div class="grid condensed" style="padding:30px">
+    <div class="row cells6">
+        <div class="cell colspan6">
+
+            <h1>Quản lý sản phẩm</h1>
+            <button class="button" data-toggle="modal" data-target="#addProduct"><span class="mif-plus"></span>&nbsp;Thêm sản phẩm</button>
+            <div id="tableProduct">
+                @Html.Action("TableProduct", "Admin")
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+
+
+<div class="modal fade" id="addProduct" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form id="form-add-product">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Thêm sản phẩm</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="grid condensed">
+
+                        <div class="row cells3" style="padding-left:0 20px">
+
+                            <div class="cell">
+                                <h5>Tên sản phẩm</h5>
+                                <div class="input-control text">
+                                    <input type="text" name="ProName" />
+                                </div>
+                                <h5>Giá</h5>
+                                <div class="input-control text">
+                                    <input type="text" name="NewPrice" />
+                                </div>
+                            </div>
+
+                            <div class="cell">
+                                <h5>Loại sản phẩm</h5>
+                                <div class="input-control select">
+                                    <select id="select-cat">
+                                        @foreach (category c in ViewBag.Categories)
+                                        {
+                                            <option value="@c.CatId">@c.CatName</option>
+                                        }
+                                    </select>
+                                </div>
+
+                                <h5>Nhà sản suất</h5>
+                                <div class="input-control select">
+                                    <select id="select-ma">
+                                        @foreach (manufacturer c in ViewBag.Manufacturers)
+                                        {
+                                            <option value="@c.MaId">@c.MaName</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="cell">
+                                <h5>Số lượng</h5>
+                                <div class="input-control text">
+                                    <input type="text" name="Quantity" />
+                                </div>
+                                <h5>Upload ảnh</h5>
+                                <div class="input-control file" data-role="input">
+                                    <input type="file" name="ImageFile" id="image-upload">
+                                    <button class="button"><span class="mif-folder"></span></button>
+                                </div>
+                                <div class="progress large" id="progress-bar" data-value="0" data-color="ribbed-amber" data-role="progressBar"></div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <h5>Mô tả ngắn</h5>
+                            <div class="input-control text full-size">
+                                <input type="text" name="ShortDes" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <h5>Mô tả chi tiết</h5>
+                            <textarea class="ckeditor" id="LongDes" name="LongDes"></textarea>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" id="closeModalUpdate" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary btn-add-product">Thêm sản phẩm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="updateProduct" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form id="form-update-product">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Thêm sản phẩm</h4>
+                </div>
+                <div class="modal-body" id="update-product-content">
+                    <div class="grid condensed">
+
+                        <div class="row cells3" style="padding-left:0 20px">
+
+                            <div class="cell">
+                                <h5>Tên sản phẩm</h5>
+                                <div class="input-control text">
+                                    <input type="text" name="uProName" />
+                                </div>
+                                <h5>Giá</h5>
+                                <div class="input-control text">
+                                    <input type="text" name="uNewPrice" />
+                                </div>
+                            </div>
+
+                            <div class="cell">
+                                <h5>Loại sản phẩm</h5>
+                                <div class="input-control select">
+                                    <select id="uselect-cat">
+                                        @foreach (category c in ViewBag.Categories)
+                                        {
+                                            <option value="@c.CatId">@c.CatName</option>
+                                        }
+                                    </select>
+                                </div>
+
+                                <h5>Nhà sản suất</h5>
+                                <div class="input-control select">
+                                    <select id="uselect-ma">
+                                        @foreach (manufacturer c in ViewBag.Manufacturers)
+                                        {
+                                            <option value="@c.MaId">@c.MaName</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="cell">
+                                <h5>Số lượng</h5>
+                                <div class="input-control text">
+                                    <input type="text" name="uQuantity" />
+                                </div>
+                                <h5>Upload ảnh</h5>
+                                <div class="input-control file" data-role="input">
+                                    <input type="file" name="uImageFile" id="uimage-upload">
+                                    <button class="button"><span class="mif-folder"></span></button>
+                                </div>
+
+
+                                <div class="progress large" id="uprogress-bar" data-value="0" data-color="ribbed-amber" data-role="progressBar"></div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <h5>Mô tả ngắn</h5>
+                            <div class="input-control text full-size">
+                                <input type="text" name="uShortDes" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <h5>Mô tả chi tiết</h5>
+                            <textarea class="ckeditor" id="uLongDes" name="uLongDes"></textarea>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary btn-update-product">Cập nhập sản phẩm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+@section js{
+
+    <script src="~/Scripts/js-upload/jquery.fileupload.js"></script>
+    <script src="~/Scripts/js-upload/jquery.fileupload-ui.js"></script>
+    <script src="~/Scripts/js-upload/jquery.iframe-transport.js"></script>
+
+    <script>
+
+        var jqXHRData;
+        var jqXHRDataUpdate;
+        var procId;
+
+        $(".btn-add-product").on('click', function () {
+            ajaxAddProduct();
+        });
+
+        $(".btn-update-product").on('click', function () {
+            ajaxUpdateProduct($(this).attr("data-id"));
+        });
+
+
+
+
+
+        function clearAddProduct() {
+            $("input[name='ProName']").val("");
+            $("input[name='NewPrice']").val("");
+            $("input[name='Quantity']").val("");
+            $("input[name='ShortDes']").val("");
+            CKEDITOR.instances.LongDes.setData("");
+            var pb = $("#progress-bar").progressBar();
+            pb.progressBar('progress', 0);
+        }
+
+        function hideModal() {
+            $("#addProduct").removeClass("in");
+            $(".modal-backdrop").remove();
+            $("#addProduct").hide();
+            $('body').removeClass("modal-open");
+        }
+
+        function ajaxLoadProduct(loadId) {
+
+            $.post("/Admin/LoadProduct", { id: loadId }, function (data) {
+                if (data) {
+                    $("input[name='uProName']").val(data.proname);
+                    $("input[name='uNewPrice']").val(data.newprice);
+                    $("#uselect-cat").val(data.catid);
+                    $("#uselect-ma").val(data.maid);
+                    $("input[name='uQuantity']").val(data.quantity);
+                    $("input[name='uShortDes']").val(data.shortdes);
+                    CKEDITOR.instances.uLongDes.setData(data.longdes);
+                    $('.btn-update-product').attr('data-id', data.proid);
+                }
+            });
+        }
+
+        function ajaxUpdateProduct(proid) {
+            var proName = $("input[name='uProName']").val();
+            var newPrice = $("input[name='uNewPrice']").val();
+            var catId = $("#uselect-cat").val();
+            var maId = $("#uselect-ma").val();
+            var quantity = $("input[name='uQuantity']").val();
+            var shortDes = $("input[name='uShortDes']").val();
+            CKEDITOR.instances.uLongDes.updateElement();
+            var longDes = CKEDITOR.instances.uLongDes.getData();
+
+            var params = {}
+            params.proid = proid;
+            params.proName = proName;
+            params.newPrice = newPrice;
+            params.catId = catId;
+            params.maId = maId;
+            params.quantity = quantity;
+            params.shortDes = shortDes;
+            params.longDes = longDes;
+
+            $.post("/Admin/UpdateProduct", params, function (data) {
+
+                if (data.Id) {
+                    var page = $('#page-info').attr('data-id');
+                    $('#tableProduct').load("/Admin/TableProduct", { page: page });
+                    if (data.Success) {
+                        setTimeout(function () {
+                            $.Notify({ type: 'success', caption: 'Thành công', content: data.Success });
+                        }, 200);
+                    }
+
+                    jqXHRDataUpdate.formData = { id: data.Id, kind: 2 };
+                    if (jqXHRDataUpdate) {
+                        jqXHRDataUpdate.submit();
+                    }
+                }
+
+
+            });
+        }
+
+        function ajaxAddProduct() {
+
+            var proName = $("input[name='ProName']").val();
+            var newPrice = $("input[name='NewPrice']").val();
+            var catId = $("#select-cat").val();
+            var maId = $("#select-ma").val();
+            var quantity = $("input[name='Quantity']").val();
+            var shortDes = $("input[name='ShortDes']").val();
+            CKEDITOR.instances.LongDes.updateElement();
+            var longDes = CKEDITOR.instances.LongDes.getData();
+
+            var params = {}
+            params.proName = proName;
+            params.newPrice = newPrice;
+            params.catId = catId;
+            params.maId = maId;
+            params.quantity = quantity;
+            params.shortDes = shortDes;
+            params.longDes = longDes;
+
+            $.post("/Admin/AddProduct", params, function (data) {
+
+                if (data.Id) {
+                    var page = $('#page-info').attr('data-id');
+                    $('#tableProduct').load("/Admin/TableProduct", { page: page });
+                    if (data.Success != '') {
+                        setTimeout(function () {
+                            $.Notify({ type: 'success', caption: 'Thành công', content: data.Success });
+                        }, 200);
+                    }
+
+                    jqXHRData.formData = { id: data.Id, kind: 1 };
+                    if (jqXHRData) {
+                        jqXHRData.submit();
+                    }
+                }
+
+            });
+        }
+
+        $(document).ready(function () {
+
+
+            $('#image-upload').fileupload({
+                url: '/File/UploadFile',
+                dataType: 'json',
+                add: function (e, data) {
+                    jqXHRData = data;
+                },
+                replaceFileInput: false,
+                submit: function (e, data) {
+                    if (!data.formData.id) {
+                        alert("Not found");
+
+                        return false;
+                    }
+                },
+                progressall: function (e, data) {
+                    var progress = parseInt(data.loaded / data.total * 100, 10);
+                    var pb = $("#progress-bar").progressBar();
+                    pb.progressBar('progress', progress);
+                },
+                done: function (event, data) {
+                    if (data.result.isUploaded) {
+                        var page = $('#page-info').attr('data-id');
+                        $('#tableProduct').load("/Admin/TableProduct", { page: page });
+
+                        setTimeout(function () {
+                            clearAddProduct();
+                        }, 1000);
+
+                    }
+                    else {
+
+                    }
+                },
+                fail: function (event, data) {
+                    if (data.files[0].error) {
+                        alert(data.files[0].error);
+                    }
+                }
+            });
+
+            $('#uimage-upload').fileupload({
+                url: '/File/UploadFile',
+                dataType: 'json',
+                add: function (e, data) {
+                    jqXHRDataUpdate = data;
+
+                },
+                replaceFileInput: false,
+                submit: function (e, data) {
+                    if (!data.formData.id) {
+                        alert("Not found");
+
+                        return false;
+                    }
+                },
+                progressall: function (e, data) {
+                    var progress = parseInt(data.loaded / data.total * 100, 10);
+                    var pb = $("#uprogress-bar").progressBar();
+                    pb.progressBar('progress', progress);
+                },
+                done: function (event, data) {
+                    if (data.result.isUploaded) {
+                        var page = $('#page-info').attr('data-id');
+                        $('#tableProduct').load("/Admin/TableProduct", { page: page });
+                        var pb = $("#uprogress-bar").progressBar();
+                        pb.progressBar('progress', 0);
+
+                    }
+                    else {
+
+                    }
+                },
+                fail: function (event, data) {
+                    if (data.files[0].error) {
+                        alert(data.files[0].error);
+                    }
+                }
+            });
+        });
+
+
+
+
+
+
+
+
+    </script>
+}
+

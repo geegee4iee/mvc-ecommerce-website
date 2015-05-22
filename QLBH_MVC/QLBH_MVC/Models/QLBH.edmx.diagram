@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="69805998158f4f8992ab17040eb34f9b" Name="Diagram1">
+        <EntityTypeShape EntityType="QLBHModel.category" Width="1.5" PointX="10" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLBHModel.manufacturer" Width="1.5" PointX="4.875" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLBHModel.orderdetail" Width="1.5" PointX="0.5" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLBHModel.order" Width="1.5" PointX="1.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLBHModel.product" Width="1.5" PointX="7.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLBHModel.user" Width="1.5" PointX="4.125" PointY="2.75" IsExpanded="true" />
+        <AssociationConnector Association="QLBHModel.categoryproduct" />
+        <AssociationConnector Association="QLBHModel.orderorderdetail" />
+        <AssociationConnector Association="QLBHModel.userorder" />
+        <AssociationConnector Association="QLBHModel.productorderdetail" />
+        <AssociationConnector Association="QLBHModel.manufacturerproduct" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

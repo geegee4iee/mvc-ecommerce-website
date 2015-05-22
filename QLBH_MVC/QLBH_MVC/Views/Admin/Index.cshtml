@@ -1,0 +1,57 @@
+﻿@{
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<div class="grid condensed">
+    <div class="row">
+        <h1 style="padding:30px">Xin chào quản trị viên</h1>
+        <div class="cell">
+            <ul class="step-list">
+                <li>
+                    <h2 class="no-margin-top">Thống kê sản phẩm</h2>
+                    <hr class="bg-red" />
+                    <div>
+                        Hiện nay cửa hàng đang có khoảng <span class="fg-red sub-header"  >@ViewBag.TotalProduct</span> sản phẩm thuộc các chủng loại, mẫu mã khác nhau
+                        <br />
+                        <br />
+                        <a href="@Url.Action("Product","Admin")" class="button danger">Quản lý sản phẩm</a>
+                    </div>
+                </li>
+                <li>
+                    <h2 class="no-margin-top">Thống kê loại sản phẩm</h2>
+                    <hr class="bg-green" />
+                    <div>
+                        Hiện nay cửa hàng đang có khoảng <span class="fg-green sub-header">@ViewBag.TotalCategory</span>  danh mục cho các sản phẩm
+                        <br />
+                        <br />
+                        <a href="@Url.Action("Category","Admin")" class="button success">Quản lý loại sản phẩm</a>
+                    </div>
+                </li>
+                <li>
+                    <h2 class="no-margin-top">Thống kê hãng sản xuất</h2>
+                    <hr class="bg-blue" />
+                    <div>
+                        Cửa hàng hiện đang nhập hàng từ <span class="fg-blue sub-header">@ViewBag.TotalManufacturer</span> hãng sản xuất khác nhau
+                        <br />
+                        <br />
+                        <a href="@Url.Action("Manufacturer","Admin")" class="button primary">Quản lý hãng sản xuất</a>
+                    </div>
+                </li>
+                <li>
+                    <h2 class="no-margin-top">Số lượng đơn hàng</h2>
+                    <hr class="bg-orange" />
+                    <div>
+                        Số lượng đơn hàng đang chờ giao là <span class="fg-orange sub-header">@ViewBag.TotalOrdering</span> 
+                        <br />
+                        Số lượng đơn hàng đã giao là <span class="fg-gray sub-header">@ViewBag.TotalOrdered</span> 
+                        <br />
+                        <br />
+                        <a href="@Url.Action("Manufacturer","Admin")" class="button warning">Quản lý đơn hàng</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+

@@ -1,0 +1,20 @@
+﻿@using QLBH_MVC.Models
+
+@model List<order>
+
+@foreach (order ord in Model)
+{
+    <div class="tile-wide fg-white" data-role="tile" data-effect="slideLeftRight">
+    <div class="tile-content">
+        @foreach (orderdetail detail in ord.orderdetails)
+        {
+            <div class="live-slide"><img src="~/images/product/@detail.ProId/img.jpg" data-role=fitImage data-format="fill">
+                <span class="bg-orange tile-top-right">@detail.Amount</span></div>
+             
+        }
+        <span class="bg-cyan tile-top-left">@ord.OrderDate.ToShortDateString()</span>
+        <span class="tile-label @(ord.OrderStatus==0?"bg-steel":"bg-cyan")">@(ord.OrderStatus==0?"Chưa giao":"Đã giao")</span>
+        <span class="tile-badge bg-red">@(ord.Total)đ </span>
+    </div>
+</div>
+}

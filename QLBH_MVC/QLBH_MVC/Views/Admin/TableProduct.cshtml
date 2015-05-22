@@ -1,0 +1,113 @@
+﻿@using QLBH_MVC.Models
+
+@model List<product>
+<div id="page-info" data-id="@ViewBag.CurPage"></div>
+<div>
+    <table class="table hovered">
+        <thead>
+            <tr>
+                <th>
+                    Mã
+                </th>
+                <th>
+                    Hình ảnh
+                </th>
+                <th>
+                    Tên
+                </th>
+                <th>
+                    Giá
+                </th>
+                <th>
+                    Số lượng
+                </th>
+                <th>
+                    Loại sản phẩm
+                </th>
+                <th>
+                    Nhà sản xuất
+                </th>
+                <th>
+                    Ngày thêm
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (product p in Model)
+            {
+                <tr>
+                    <td>
+                        @p.ProId
+                    </td>
+                    <td>
+                        <img style="height:50px" src="~/images/product/@p.ProId/img.jpg" />
+                    </td>
+                    <td>
+                        @p.ProName
+                    </td>
+                    <td>
+                        @p.NewPrice
+                    </td>
+                    <td>
+                        @p.Quantity
+                    </td>
+                    <td>
+                        @p.category.CatName
+                    </td>
+                    <td>
+                        @p.manufacturer.MaName
+                    </td>
+
+                    <td>
+                        @p.DateAdd.ToShortDateString()
+                    </td>
+                    <td>
+                        <button class="button btn-load-product" data-id="@p.ProId" data-toggle="modal" data-target="#updateProduct"><span class="mif-pencil"></span></button>
+                    </td>
+                    <td>
+                        <button class="button btn-remove-product" data-id="@p.ProId"><span class="mif-cross"></span></button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<a data-id="@(ViewBag.CurPage - 1)" class="button @(ViewBag.CurPage == 1 ? "disabled" : "") btn-page-load"><</a>
+@for (int i = 1; i <= ViewBag.PageCount; i++)
+{
+    <a data-id="@i" class="button @(ViewBag.CurPage == i ? "disabled" : "") btn-page-load">@i</a>
+}
+<a data-id="@(ViewBag.CurPage + 1)" class="button @(ViewBag.CurPage == ViewBag.PageCount ? "disabled" : "") btn-page-load">></a>
+<script src="~/Scripts/sweetalert.min.js"></script>
+<script>
+    $('.btn-page-load').click(function () {
+        page = $(this).attr('data-id');
+        $('#tableProduct').load("/Admin/TableProduct", { page: page });
+    });
+
+    $('.btn-load-product').click(function () {
+        ajaxLoadProduct($(this).attr("data-id"));
+    });
+
+    $('.btn-remove-product').click(function () {
+        id = $(this).attr('data-id');
+        $.post("/Admin/RemoveProduct", { id: id }, function (data) {
+            if (data.Success) {
+                setTimeout(function () {
+                    $.Notify({ type: 'success', caption: 'Thành công', content: data.Success });
+                }, 200);
+
+                page = $('#page-info').attr('data-id');
+                $('#tableProduct').load("/Admin/TableProduct", { page: page });
+            }
+
+            if (data.Error) {
+                setTimeout(function () {
+                    $.Notify({ type: 'error', caption: 'Thất bại', content: data.Error });
+                }, 200);
+            }
+        });
+    });
+</script>

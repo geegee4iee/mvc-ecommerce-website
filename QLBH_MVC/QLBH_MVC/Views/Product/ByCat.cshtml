@@ -1,0 +1,124 @@
+﻿@using QLBH_MVC.Models
+
+@model List<product>
+
+@if (Model.Count == 0)
+{
+    <text>Không có sản phẩm</text>
+}
+
+<div class="grid condensed" style="margin-top:3.125rem;margin-bottom:0">
+    @*<div class="row">
+            <div class="cell">
+                <div class="tile-container bg-darkCyan">
+                    <div class="tile-wide bg-orange fg-white" data-role="tile">
+                        <div class="tile-content">
+                            <div class="image-container">
+                                <div class="frame">
+                                    <img src="~/images/home/1.jpg">
+                                </div>
+                                <div class="image-overlay op-darkCyan">
+                                    <h2>Loại <span class="lowercase">@ViewBag.CatName</span></h2>
+                                </div>
+                            </div>
+                            <div class="tile-label">Loại sản phẩm</div>
+                            <div class="tile-badge bg-darkRed">@ViewBag.Count</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>*@
+</div>
+
+
+<div class="grid condensed bg-white" style="margin-top:0;margin-bottom:0">
+    <div class="row cells4">
+        <div class="cell">
+            <div class="row">
+                <ul class="sidebar2" style="max-width:none">
+                    <li class="stick bg-green">
+                        <a class="dropdown-toggle" href="#">Loại sản phẩm</a>
+                        <ul class="d-menu" style="max-width:none" data-role="dropdown">
+                            @Html.Action("PartialList", "Category")
+                        </ul>
+                    </li>
+                    <li class="stick bg-green">
+                        <a class="dropdown-toggle" href="#">Nhà sản xuất</a>
+                        <ul class="d-menu" style="max-width:none" data-role="dropdown">
+                            @Html.Action("PartialList", "Manufacturer")
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+
+
+
+        </div>
+        <div class="cell colspan3">
+            <div class="tile-container bg-darkCyan">
+                <div class="tile-small bg-orange fg-white" data-role="tile">
+                    <div class="tile-content slide-down">
+                        <div class="slide">
+                            <img src="~/images/home/7.jpg" data-role="fitImage" data-format="square">
+                        </div>
+                        <div class="slide-over op-cyan text-small padding10">
+                            Chi tiết
+                        </div>
+                    </div>
+                </div>
+                <p class="sub-header fg-white" style="margin-left:100px">@ViewBag.CatName</p>
+            </div>
+            <div class="tile-container">
+                @foreach (product c in Model)
+                {
+                    <div class="tile-large fg-white" data-role="tile" style="margin-right:50px;margin-bottom:50px">
+                        <div class="tile-content slide-down-2">
+                            <div class="slide">
+                                <img src="~/images/product/@(c.ProId)/img.jpg" data-role="fitImage" data-format="fill">
+                                <span class="tile-badge bg-darkRed">@c.NewPrice đ</span>
+                            </div>
+                            <div class="slide-over bg-darkCyan text-small padding10">
+                                <a class="button fg-gray add-cart" data-id="@c.ProId"><span class="mif-cart fg-cyan"></span>&nbsp;Đặt hàng</a>
+                                <ul class="simple-list">
+                                    <li class="fg-white">
+                                        Thuộc loại @c.category.CatName
+                                    </li>
+                                    <li class="fg-white">
+                                        Do @c.manufacturer.MaName sản xuất
+                                    </li>
+                                    <li class="fg-white">
+                                        Hiện còn <span class="fg-lightTeal">@c.Quantity</span> cái
+                                    </li>
+                                    <li class="fg-white">
+                                        @c.ShortDes
+                                    </li>
+                                </ul>
+
+                                <a class="fg-white" href="@Url.Action("Detail", "Product", new { id=@c.ProId })"><div class="tile-label header">@c.ProName</div></a>
+
+                            </div>
+
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="row">
+                <a href="@Url.Action("ByCat", "Product", new { id=ViewBag.CatId,page=ViewBag.CurPage-1 })" class="button @(ViewBag.CurPage == 1 ? "disabled" : "")"><</a>
+                @for (int i = 1; i <= ViewBag.PageCount; i++)
+                {
+                    <a href="@Url.Action("ByCat", "Product", new { id = ViewBag.CatId, page = i })" class="button @(ViewBag.CurPage == i ? "disabled" : "")">@i</a>
+                }
+                <a href="@Url.Action("ByCat", "Product", new { id=ViewBag.CatId,page=ViewBag.CurPage+1 })" class="button @(ViewBag.CurPage == ViewBag.PageCount ? "disabled" : "")">></a>
+
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+
+</div>

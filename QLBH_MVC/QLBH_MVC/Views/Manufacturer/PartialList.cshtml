@@ -1,0 +1,17 @@
+﻿@using QLBH_MVC.Models
+
+@model List<manufacturer>
+
+
+@foreach (manufacturer c in Model)
+{
+    <li>
+        <a href="@Url.Action("ByMa", "Product", new { id=c.MaId })">
+            <span data-role="hint" data-hint-background="bg-green"
+                  data-hint-color="fg-white"
+                  data-hint-mode="2"
+                  data-hint="Số lượng sản phẩm|@c.products.Count" class="title">@c.MaName</span>
+        </a>
+    </li>
+}
+

@@ -1,0 +1,30 @@
+﻿@using QLBH_MVC.Models
+
+@model List<product>
+
+
+<div class="tile-container bg-white">
+    @foreach (product p in Model)
+    {
+        <div class="tile-square fg-white" data-role="tile">
+            <div class="tile-content slide-down-2">
+                <div class="slide">
+                    <img src="~/images/product/@(p.ProId)/img.jpg" data-role="fitImage" data-format="fill">
+                    <span class="tile-badge bg-darkRed">@(p.NewPrice)đ</span>
+                </div>
+                <div class="slide-over bg-darkCyan text-small padding10">
+                    <p>
+                        <button class="button add-cart" data-id="@p.ProId"><span class="mif-cart"></span></button>
+                    </p>
+                    <span><span class="icon mif-money"></span>&nbsp;@(p.Sale)</span>
+                    <span class="tile-badge bg-darkRed">@(p.Quantity)</span>
+                    
+                    <a class="fg-white" href="@Url.Action("Detail", "Product", new { id=@p.ProId })"><div class="tile-label">@p.ProName</div></a>
+</div>
+                
+            </div>
+            
+        </div>
+    }
+</div>
+

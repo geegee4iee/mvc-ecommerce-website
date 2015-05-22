@@ -1,0 +1,291 @@
+﻿@using QLBH_MVC.Models
+
+@model product
+
+@if (Model == null)
+{
+    <text>Không có sản phẩm</text>
+}
+
+<div class="grid condensed" style="margin-top:3.125rem;margin-bottom:0">
+    <div class="row">
+        <div class="cell">
+            <div class="presenter" data-role="presenter" data-height="220" data-easing="swing">
+                <div class="scene">
+                    <div class="act bg-darkEmerald fg-white">
+                        <img src="~/images/product/@Model.ProId/img.jpg" class="actor" data-position="10,10" style="height: 200px">
+                        <h1 class="actor" data-position="10,270">@Model.ProName</h1>
+                        <p class="actor" data-position="70,270">@Model.ShortDes</p>
+                    </div>
+                    <div class="act bg-steel fg-white">
+                        <img src="~/images/product/@Model.ProId/img.jpg" class="actor" data-position="10,10" style="height: 200px">
+                        <p class="actor" data-position="10,270">Được sản xuất bởi</p>
+                        <h1 class="actor" data-position="70,270">@Model.manufacturer.MaName</h1>
+                    </div>
+                    <div class="act bg-darkIndigo fg-white">
+                        <img src="~/images/product/@Model.ProId/img.jpg" class="actor" data-position="10,10" style="height: 200px">
+                        <p class="actor" data-position="10,270">Sản phẩm thuộc loại</p>
+                        <h1 class="actor" data-position="70,270">@Model.category.CatName</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="grid condensed bg-white" style="margin-top:0;margin-bottom:0">
+    <div class="row cells4">
+        <div class="cell">
+            <div class="row">
+                <ul class="sidebar2" style="max-width:none">
+                    <li class="stick bg-green">
+                        <a class="dropdown-toggle" href="#">Loại sản phẩm</a>
+                        <ul class="d-menu" style="max-width:none" data-role="dropdown">
+                            @Html.Action("PartialList", "Category")
+                        </ul>
+                    </li>
+                    <li class="stick bg-green">
+                        <a class="dropdown-toggle" href="#">Nhà sản xuất</a>
+                        <ul class="d-menu" style="max-width:none" data-role="dropdown">
+                            @Html.Action("PartialList", "Manufacturer")
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="row">
+            </div>
+
+
+        </div>
+        <div class="cell colspan3">
+            <div class="tile-container bg-darkCyan">
+                <div class="tile-small bg-orange fg-white" data-role="tile">
+                    <div class="tile-content slide-down">
+                        <div class="slide">
+                            <img src="~/images/home/4.jpg" data-role="fitImage" data-format="square">
+                        </div>
+                        <div class="slide-over op-cyan text-small padding10">
+                            Chi tiết
+                        </div>
+                    </div>
+                </div>
+                <p class="sub-header fg-white" style="margin-left:100px">Chi tiết sản phẩm</p>
+
+            </div>
+            <div class="grid condensed">
+                <div class="row cells4">
+                    <div class="cell">
+                        
+                        <a href="~/images/product/@Model.ProId/img.jpg" data-lighter>
+                            <img src="~/images/product/@Model.ProId/img.jpg" style="width:100%" />
+                        </a>
+
+                        <div class="row">
+                            <div class="tile-container">
+                                <div class="tile-small bg-red fg-white" data-role="tile">
+                                    <div class="tile-content iconic">
+                                        <span class="icon mif-eye"></span>
+                                        <span class="tile-badge">@Model.ViewCount</span>
+                                    </div>
+                                </div>
+                                <div class="tile-small bg-green fg-white" data-role="tile">
+                                    <div class="tile-content iconic">
+                                        <span class="icon mif-cart"></span>
+                                        <span class="tile-badge">@Model.Sale</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="cell colspan2">
+                        <h1 class="fg-cyan">@Model.ProName</h1>
+                        <div class="row cells2">
+                            <div class="cell">
+                                <blockquote>
+                                    <p>
+                                        <span class="bg-gray fg-white">
+                                            @Model.ShortDes
+                                        </span>
+                                    </p>
+
+                                    <small>Mô tả ngắn</small>
+                                    <p>
+                                        <span class="sub-header bg-cyan fg-white">
+                                            @Model.Quantity
+                                        </span>
+                                    </p>
+                                    <small>Số lượng</small>
+                                    <p>
+                                        <span class="sub-header bg-red fg-white">
+                                            @(Model.NewPrice)đ
+                                        </span>
+                                    </p>
+                                    <small>Giá bán</small>
+                                    <p>
+                                        <span class="bg-lightOrange fg-white">
+                                            @Model.manufacturer.MaName
+                                        </span>
+                                    </p>
+                                    <small>Nhà sản xuất</small>
+                                    <p>
+                                        <span class="bg-lightOrange fg-white">
+                                            @Model.category.CatName
+                                        </span>
+                                    </p>
+                                    <small>Loại sản phẩm</small>
+                                </blockquote>
+                            </div>
+                            <div class="cell">
+                                
+                                <form action="" id="addProcs">
+                                    <div class="input-control text full-size" data-role="input">
+                                        <input type="text" name="Amount" placeholder="Nhập số lượng">
+                                        <button type="submit" class="button add-cart-multi" data-id="@Model.ProId"><span class="mif-cart"></span></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="cell">
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="panel" data-role="panel">
+                    <div class="heading">
+                        <span class="title">Mô tả sản phẩm</span>
+                    </div>
+                    <div class="content">
+                        @Html.Raw(Model.LongDes)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="tile-container bg-darkCyan">
+                    <div class="tile-small bg-orange fg-white" data-role="tile">
+                        <div class="tile-content slide-down">
+                            <div class="slide">
+                                <img src="~/images/home/7.jpg" data-role="fitImage" data-format="square">
+                            </div>
+                            <div class="slide-over op-cyan text-small padding10">
+                                Chi tiết
+                            </div>
+                        </div>
+                    </div>
+                    <p class="sub-header fg-white" style="margin-left:100px">Cùng loại</p>
+                </div>
+                @Html.Action("PartialViewSameCat", "Product", new { id = @Model.category.CatId })
+            </div>
+
+
+            <div class="row">
+                <div class="tile-container bg-darkCyan">
+                    <div class="tile-small bg-orange fg-white" data-role="tile">
+                        <div class="tile-content slide-down">
+                            <div class="slide">
+                                <img src="~/images/home/5.jpg" data-role="fitImage" data-format="square">
+                            </div>
+                            <div class="slide-over op-cyan text-small padding10">
+                                Chi tiết
+                            </div>
+                        </div>
+                    </div>
+                    <p class="sub-header fg-white" style="margin-left:100px">Cùng nhà sản xuất</p>
+                </div>
+                @Html.Action("PartialViewSameMa", "Product", new { id = @Model.manufacturer.MaId })
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+</div>
+
+@section css{
+    <link href="~/Content/jquery.lighter.css" rel="stylesheet" />
+
+    <style type="text/css">
+        small.error {
+            padding: 3px;
+        }
+    </style>
+
+}
+
+@section js{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.lighter.js"></script>
+    <script>
+
+        function ajaxPostMultiCart() {
+            var amount = $("input[name='Amount']").val();
+            var procId = $(".add-cart-multi").attr("data-id");
+            if (procId != '') {
+                $.post("/Cart/AddProduct", { "id": procId, "amount": amount }, function (data) {
+                    $('#cart-status').text(data.Cart.Total);
+                    if (data.Status == false) {
+                        setTimeout(function () {
+                            $.Notify({ type: 'alert', caption: 'Vượt quá số lượng', content: "hiện có" });
+                        }, 200);
+                    }
+                    else {
+                        setTimeout(function () {
+                            $.Notify({ type: 'success', caption: 'Đã thêm', content: "vào giỏ hàng" });
+                        }, 200);
+                    }
+
+                });
+            }
+
+            $('#cart-list').load("/Cart/PartialList");
+
+        };
+
+        $(function () {
+            $("#addProcs").validate({
+                rules: {
+                    Amount: {
+                        required: true,
+                        digits: true,
+                        range: [1, 999]
+                    }
+                },
+                messages: {
+                    Amount: {
+                        required: 'Bạn chưa nhập số lượng',
+                        digits: 'Đây không phải là số',
+                        range: 'Vượt quá giới hạn cho phép'
+                    }
+
+                },
+                errorElement: 'small',
+                errorClass: 'place-right fg-red error',
+                highlight: function (element) {
+                    $(element).closest('.input-control').addClass('error');
+                },
+                submitHandler: function (form) {
+                    ajaxPostMultiCart();
+                },
+                success: function (label) {
+                    label.closest('.input-control').removeClass('error');
+                    label.remove();
+                }
+            });
+        });
+    </script>
+
+
+}
+
+
+

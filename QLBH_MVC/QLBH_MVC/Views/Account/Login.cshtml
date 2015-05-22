@@ -1,0 +1,194 @@
+﻿<div class="grid condensed full-size" style="margin-bottom:0">
+    <div class="row cells6">
+        <div class="cell colspan4 fg-grayLighter" style="padding:20px">
+            <h1 class="tile-area-title">Chào bạn</h1>
+            <div class="row cells3">
+                <div class="cell">
+                    <div class="tile-container">
+                        <div class="tile bg-red fg-white" data-role="tile">
+                            <div class="tile-content iconic">
+                                <span class="icon mif-credit-card"></span>
+                                <span class="tile-label">Thanh toán</span>
+                            </div>
+                        </div>
+                        <div class="tile bg-cyan fg-white" data-role="tile">
+                            <div class="tile-content iconic">
+                                <span class="icon mif-users"></span>
+                                <span class="tile-badge bg-darkRed">@ViewBag.Users</span>
+                                <span class="tile-label">User</span>
+                            </div>
+                        </div>
+                        <div class="tile-wide fg-white" data-role="tile" data-effect="slideLeftRight">
+                            <div class="tile-content">
+                                <div class="live-slide"><img src="~/images/home/1.jpg" data-role="fitImage" data-format="fill"></div>
+                                <div class="live-slide"><img src="~/images/home/2.jpg" data-role="fitImage" data-format="fill"></div>
+                                <div class="live-slide"><img src="~/images/home/3.jpg" data-role="fitImage" data-format="fill"></div>
+                                <div class="live-slide"><img src="~/images/home/4.jpg" data-role="fitImage" data-format="fill"></div>
+                                <div class="live-slide"><img src="~/images/home/5.jpg" data-role="fitImage" data-format="fill"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cell">
+                    <div class="tile-wide bg-darkCyan fg-white" data-role="tile">
+                        <div class="tile-content">
+                            <div class="carousel" data-role="carousel" data-controls="false" data-markers="true">
+                                <div class="slide"><img src="~/images/home/6.jpg"></div>
+                                <div class="slide"><img src="~/images/home/7.jpg"></div>
+                                <div class="slide"><img src="~/images/home/8.jpg"></div>
+                                <div class="slide"><img src="~/images/home/9.jpg"></div>
+                                <div class="slide"><img src="~/images/home/10.jpg"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tile-wide bg-green fg-white" data-role="tile">
+                        <div class="tile-content iconic">
+                            <span class="icon mif-clipboard"></span>
+                            <span class="tile-badge bg-darkRed">@ViewBag.NewRegister</span>
+                            <span class="tile-label">Người dùng mới</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="cell colspan2 bg-darkCyan fg-grayLighter" style="padding:20px;margin-top:20px">
+            <h1>Đăng nhập</h1>
+            <p>
+                <small>
+                    Đăng nhập vào  <span class="sub-alt-header fg-blue">tài khoản </span> của bạn để có thể tận hưởng <span class="sub-alt-header">chuyến mua sắm thỏa thích</span>
+                </small>
+
+            </p>
+            <form action="" method="post" id="loginForm">
+                <h5 class="text-dashed">Tên tài khoản</h5>
+                <div class="input-control text full-size" data-role="input" id="formUID">
+                    <input type="text" name="UID">
+                    <button class="button helper-button clear"><span class="mif-cross"></span></button>
+                </div>
+                <h5 class="text-dashed">Mật khẩu</h5>
+                <div class="input-control password full-size" data-role="input">
+                    <input type="password" name="PWD">
+                    <button class="button helper-button reveal"><span class="mif-looks"></span></button>
+                </div>
+                <div>
+                    <label class="input-control checkbox small-check">
+                        <input type="checkbox" name="Cookie">
+                        <span class="check"></span>
+                        <span class="caption">Ghi nhớ</span>
+                    </label>
+                </div>
+                <button class="button" type="submit" id="registerButton">Đăng nhập</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section css{
+    <link href="~/Content/sweetalert.css" rel="stylesheet" />
+    <style type="text/css">
+        small.error {
+            padding: 3px;
+        }
+    </style>
+
+}
+
+@section js{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/sweetalert.min.js"></script>
+    <script>
+
+
+        $("input[name='UID']").change(function () {
+            $(".error-exists").hide();
+        });
+
+        $("input[name='PWD']").change(function () {
+            $(".error-exists").hide();
+        });
+
+        function GetURLParameter(sParam)
+        {
+            var sPageURL = window.location.search.substring(1);
+            var sURLVariables = sPageURL.split('&');
+            for (var i = 0; i < sURLVariables.length; i++)
+            {
+                var sParameterName = sURLVariables[i].split('=');
+                if (sParameterName[0] == sParam)
+                {
+                    return sParameterName[1];
+                }
+            }
+        }
+
+
+        function ajaxLogin() {
+
+            var uid = $("input[name='UID']").val();
+            var pwd = $("input[name='PWD']").val();
+            var cookie
+            if ($("input[name=Cookie]").prop('checked')) {
+                cookie = "on";
+            }
+            var cart = GetURLParameter('require');
+
+            var params = {}
+            params.uid = uid;
+            params.pwd = pwd;
+            params.cookie = cookie;
+            params.require = cart;
+
+            if (uid != '') {
+                $.post("/Account/Login", params, function (data) {
+                    if (data.Success) {
+                        swal("Thành công!", data.Success, "success");
+                        setTimeout(function () {
+                            window.location.href = data.Address;
+                        }, 1000);
+
+                    }
+                    if (data.Error) {
+                        swal("Thất bại!", data.Error, "error");
+                    }
+                });
+            }
+
+        };
+
+        $(function () {
+            $('#loginForm').validate({
+                rules: {
+                    UID: {
+                        required: true
+                    },
+                    PWD: {
+                        required: true,
+                        minlength: 6
+                    }
+                },
+                messages: {
+                    UID: {
+                        required: 'Chưa nhập tên đăng nhập'
+                    },
+                    PWD: {
+                        required: 'Chưa nhập mật khẩu',
+                        minlength: 'Mật khẩu phải dài hơn 6 ký tự'
+                    }
+                },
+                submitHandler: function (form) {
+                    ajaxLogin();
+                },
+                errorElement: 'small',
+                errorClass: 'place-right fg-yellow error',
+                highlight: function (element) {
+                    $(element).closest('.input-control').addClass('error');
+                },
+                success: function (label) {
+                    label.closest('.input-control').removeClass('error');
+                    label.remove();
+                }
+            });
+        });
+    </script>
+}
