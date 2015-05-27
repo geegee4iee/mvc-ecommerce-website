@@ -2,93 +2,120 @@
 
 @model UserInfoModel
 
-<div class="grid condensed full-size" style="margin-bottom:0">
-    <div class="row cells6">
-        <div class="cell colspan2">
-            <div class="tabcontrol" style="padding:20px" data-role="tabControl">
-                <ul class="tabs">
-                    <li><a href="#frame_1_1" class="fg-white">Đổi mật khẩu</a></li>
-                    <li><a href="#frame_1_2" class="fg-white">Đổi thông tin cá nhân</a></li>
-                </ul>
-                <div class="frames">
+<div style="min-height:100%;padding-bottom:200px;margin-top:3.125rem" class="bg-darkCyan">
+    <div class="grid condensed full-size" style="margin-bottom:0">
+        <div class="row cells6">
+            <div class="cell colspan2">
+                <div class="tabcontrol" style="padding:20px" data-role="tabControl">
+                    <ul class="tabs">
+                        <li><a href="#frame_1_1" class="fg-white">Đổi mật khẩu</a></li>
+                        <li><a href="#frame_1_2" class="fg-white">Đổi thông tin cá nhân</a></li>
+                    </ul>
+                    <div class="frames">
 
 
-                    <div class="frame bg-cyan fg-white" id="frame_1_1">
-                        <form action="" method="post" id="updatePwd">
-                            <h1>Đổi mật khẩu</h1>
-                            <p>
-                                <small>
-                                    Khuyến khích sử dụng những mật khẩu chứa số và ký tự cho độ bảo mật cao, hạn chế sử dụng những mật khẩu đơn giản dễ đoán
-                                </small>
+                        <div class="frame bg-cyan fg-white" id="frame_1_1">
+                            <form action="" method="post" id="updatePwd">
+                                <h1>Đổi mật khẩu</h1>
+                                <p>
+                                    <small>
+                                        Khuyến khích sử dụng những mật khẩu chứa số và ký tự cho độ bảo mật cao, hạn chế sử dụng những mật khẩu đơn giản dễ đoán
+                                    </small>
 
-                            </p>
+                                </p>
 
-                            <h5 class="text-dashed">Tên tài khoản</h5>
-                            <div class="input-control text full-size" data-role="input" id="formUID">
-                                <input type="text" name="UID" value="@Model.UID" disabled>
-                                <button class="button helper-button clear"><span class="mif-cross"></span></button>
-                            </div>
-                            <h5 class="text-dashed">Mật khẩu</h5>
-                            <div class="input-control password full-size" data-role="input">
-                                <input type="password" name="PWD">
-                                <button class="button helper-button reveal"><span class="mif-looks"></span></button>
-                            </div>
-                            <h5 class="text-dashed">Mật khẩu mới</h5>
-                            <div class="input-control  password  text full-size" data-role="input" id="formUID">
-                                <input type="password" name="NewPWD">
-                                <button class="button helper-button reveal"><span class="mif-looks"></span></button>
-                            </div>
-                            <h5 class="text-dashed">Nhập lại</h5>
-                            <div class="input-control  password  text full-size" data-role="input" id="formUID">
-                                <input type="password" name="ConfirmPWD">
-                                <button class="button helper-button reveal"><span class="mif-looks"></span></button>
-                            </div>
-                            <button class="button" type="submit" id="pwdButton">Đổi mật khẩu</button>
-                        </form>
+                                <h5 class="text-dashed">Tên tài khoản</h5>
+                                <div class="input-control text full-size" data-role="input" id="formUID">
+                                    <input type="text" name="UID" value="@Model.UID" disabled>
+                                    <button class="button helper-button clear"><span class="mif-cross"></span></button>
+                                </div>
+                                <h5 class="text-dashed">Mật khẩu</h5>
+                                <div class="input-control password full-size" data-role="input">
+                                    <input type="password" name="PWD">
+                                    <button class="button helper-button reveal"><span class="mif-looks"></span></button>
+                                </div>
+                                <h5 class="text-dashed">Mật khẩu mới</h5>
+                                <div class="input-control  password  text full-size" data-role="input" id="formUID">
+                                    <input type="password" name="NewPWD">
+                                    <button class="button helper-button reveal"><span class="mif-looks"></span></button>
+                                </div>
+                                <h5 class="text-dashed">Nhập lại</h5>
+                                <div class="input-control  password  text full-size" data-role="input" id="formUID">
+                                    <input type="password" name="ConfirmPWD">
+                                    <button class="button helper-button reveal"><span class="mif-looks"></span></button>
+                                </div>
+                                <button class="button" type="submit" id="pwdButton">Đổi mật khẩu</button>
+                            </form>
+                        </div>
+                        <div class="frame bg-cyan fg-white" id="frame_1_2">
+                            <form action="" method="post" id="updateInfo">
+                                <h1>Thông tin cá nhân</h1>
+                                <p>
+                                    <small>
+                                        Điều chỉnh thông tin cá nhân của bạn nếu có vấn đề khi giao dịch mua hàng với chúng tôi diễn ra không thuân lợi
+                                    </small>
+
+                                </p>
+
+                                <h5 class="text-dashed">Họ và tên</h5>
+                                <div class="input-control text full-size" data-role="input">
+                                    <input type="text" name="FullName" value="@Model.FullName">
+                                    <button class="button helper-button clear"><span class="mif-cross"></span></button>
+                                </div>
+                                <h5 class="text-dashed">Ngày sinh</h5>
+                                <div class="input-control text full-size" data-role="input">
+                                    <input type="text" name="DOB" id="datetimepicker" value="@Model.DOB">
+                                </div>
+                                <h5 class="text-dashed">Email</h5>
+                                <div class="input-control text full-size" data-role="input">
+                                    <input type="text" placeholder="name&#64;example.com" name="Email" value="@Model.Email">
+                                    <button class="button helper-button clear"><span class="mif-cross"></span></button>
+                                </div>
+                                <h5 class="text-dashed">Số điện thoại</h5>
+                                <div class="input-control text full-size" data-role="input">
+                                    <input type="text" name="Phone" value="@Model.Phone">
+                                    <button class="button helper-button clear"><span class="mif-cross"></span></button>
+                                </div>
+                                <button class="button" type="submit" id="registerButton">Câp nhập thông tin</button>
+                            </form>
+                        </div>
+
                     </div>
-                    <div class="frame bg-cyan fg-white" id="frame_1_2">
-                        <form action="" method="post" id="updateInfo">
-                            <h1>Thông tin cá nhân</h1>
-                            <p>
-                                <small>
-                                    Điều chỉnh thông tin cá nhân của bạn nếu có vấn đề khi giao dịch mua hàng với chúng tôi diễn ra không thuân lợi
-                                </small>
-
-                            </p>
-
-                            <h5 class="text-dashed">Họ và tên</h5>
-                            <div class="input-control text full-size" data-role="input">
-                                <input type="text" name="FullName" value="@Model.FullName">
-                                <button class="button helper-button clear"><span class="mif-cross"></span></button>
-                            </div>
-                            <h5 class="text-dashed">Ngày sinh</h5>
-                            <div class="input-control text full-size" data-role="input">
-                                <input type="text" name="DOB" id="datetimepicker" value="@Model.DOB">
-                            </div>
-                            <h5 class="text-dashed">Email</h5>
-                            <div class="input-control text full-size" data-role="input">
-                                <input type="text" placeholder="name&#64;example.com" name="Email" value="@Model.Email">
-                                <button class="button helper-button clear"><span class="mif-cross"></span></button>
-                            </div>
-                            <h5 class="text-dashed">Số điện thoại</h5>
-                            <div class="input-control text full-size" data-role="input">
-                                <input type="text" name="Phone" value="@Model.Phone">
-                                <button class="button helper-button clear"><span class="mif-cross"></span></button>
-                            </div>
-                            <button class="button" type="submit" id="registerButton">Câp nhập thông tin</button>
-                        </form>
-                    </div>
-
+                </div>
+            </div>
+            <div class="cell"></div>
+            <div class="cell colspan3" style="padding:20px">
+                <h1 class="fg-white">
+                    Đơn hàng đã đặt
+                </h1>
+                <div class="tile-container">
+                    @Html.Action("PartialViewUserOrders", "Account")
                 </div>
             </div>
         </div>
-        <div class="cell"></div>
-        <div class="cell colspan3" style="padding:20px">
-            <h1 class="fg-white">
-                Đơn hàng đã đặt
-            </h1>
-            <div class="tile-container">
-                @Html.Action("PartialViewUserOrders", "Account")
+    </div>
+    <div style="width:100%;position:absolute;bottom:0;left:0">
+        <div>
+            <div class="presenter" data-role="presenter" data-height="100" data-easing="easeInExpo">
+                <div class="scene">
+                    <div class="act ribbed-darkEmerald fg-white">
+                        <h1 class="actor" data-position="10,10">Thông tin website</h1>
+                        <p class="actor" data-position="70,10">Được thực hiện bởi Huỳnh Chánh Kiệt</p>
+                        <p class="actor" data-position="95,10">Sử dụng bộ CSS <a class="fg-yellow" href="http://metroui.org.ua/">Metro</a></p>
+
+                        <img src="~/images/home/5.jpg" class="actor" data-position="10,500" style="height: 130px">
+                        <img src="~/images/home/6.jpg" class="actor" data-position="50,800" style="height: 100px">
+                        <img src="~/images/home/7.jpg" class="actor" data-position="30,990" style="height: 80px">
+                    </div>
+                    <div class="act ribbed-grayDark fg-white">
+                        <h1 class="actor" data-position="10,10">Liên hệ cửa hàng</h1>
+                        <p class="actor" data-position="70,10">Phone <span class="fg-amber">+1900-1560</span></p>
+                        <p class="actor" data-position="95,10">Địa chỉ: 18/5 Phường 12, đường Võ Thị Sáu</p>
+                        <img src="~/images/home/8.jpg" class="actor" data-position="10,500" style="height: 130px">
+                        <img src="~/images/home/9.jpg" class="actor" data-position="50,750" style="height: 100px">
+                        <img src="~/images/home/10.jpg" class="actor" data-position="30,950" style="height: 80px">
+                    </div>
+                </div>
             </div>
         </div>
     </div>

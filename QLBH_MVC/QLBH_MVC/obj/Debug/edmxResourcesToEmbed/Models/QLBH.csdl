@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QLBHModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="category">
+    <Key>
+      <PropertyRef Name="CatId" />
+    </Key>
+    <Property Name="CatId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CatName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="products" Relationship="QLBHModel.categoryproduct" FromRole="category" ToRole="product" />
+  </EntityType>
+  <EntityType Name="manufacturer">
+    <Key>
+      <PropertyRef Name="MaId" />
+    </Key>
+    <Property Name="MaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MaName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="products" Relationship="QLBHModel.manufacturerproduct" FromRole="manufacturer" ToRole="product" />
+  </EntityType>
+  <EntityType Name="orderdetail">
+    <Key>
+      <PropertyRef Name="DetId" />
+    </Key>
+    <Property Name="OrderId" Type="Int32" Nullable="false" />
+    <Property Name="ProId" Type="Int32" Nullable="false" />
+    <Property Name="Amount" Type="Int32" Nullable="false" />
+    <Property Name="DetId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="order" Relationship="QLBHModel.orderorderdetail" FromRole="orderdetail" ToRole="order" />
+    <NavigationProperty Name="product" Relationship="QLBHModel.productorderdetail" FromRole="orderdetail" ToRole="product" />
+  </EntityType>
+  <EntityType Name="order">
+    <Key>
+      <PropertyRef Name="OrderId" />
+    </Key>
+    <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="Total" Type="Int64" Nullable="false" />
+    <Property Name="OrderStatus" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="orderdetails" Relationship="QLBHModel.orderorderdetail" FromRole="order" ToRole="orderdetail" />
+    <NavigationProperty Name="user" Relationship="QLBHModel.userorder" FromRole="order" ToRole="user" />
+  </EntityType>
+  <EntityType Name="product">
+    <Key>
+      <PropertyRef Name="ProId" />
+    </Key>
+    <Property Name="ProId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ShortDes" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LongDes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="NewPrice" Type="Int32" Nullable="false" />
+    <Property Name="OldPrice" Type="Int32" Nullable="false" />
+    <Property Name="CatId" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="ViewCount" Type="Int32" Nullable="false" />
+    <Property Name="DateAdd" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="MaId" Type="Int32" Nullable="false" />
+    <Property Name="Sale" Type="Int32" />
+    <NavigationProperty Name="category" Relationship="QLBHModel.categoryproduct" FromRole="product" ToRole="category" />
+    <NavigationProperty Name="orderdetails" Relationship="QLBHModel.productorderdetail" FromRole="product" ToRole="orderdetail" />
+    <NavigationProperty Name="manufacturer" Relationship="QLBHModel.manufacturerproduct" FromRole="product" ToRole="manufacturer" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Permission" Type="Int32" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="orders" Relationship="QLBHModel.userorder" FromRole="user" ToRole="order" />
+  </EntityType>
+  <EntityContainer Name="QLBHEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="categories" EntityType="Self.category" />
+    <EntitySet Name="manufacturers" EntityType="Self.manufacturer" />
+    <EntitySet Name="orderdetails" EntityType="Self.orderdetail" />
+    <EntitySet Name="orders" EntityType="Self.order" />
+    <EntitySet Name="products" EntityType="Self.product" />
+    <EntitySet Name="users" EntityType="Self.user" />
+    <AssociationSet Name="categoryproduct" Association="QLBHModel.categoryproduct">
+      <End Role="category" EntitySet="categories" />
+      <End Role="product" EntitySet="products" />
+    </AssociationSet>
+    <AssociationSet Name="orderorderdetail" Association="QLBHModel.orderorderdetail">
+      <End Role="order" EntitySet="orders" />
+      <End Role="orderdetail" EntitySet="orderdetails" />
+    </AssociationSet>
+    <AssociationSet Name="userorder" Association="QLBHModel.userorder">
+      <End Role="user" EntitySet="users" />
+      <End Role="order" EntitySet="orders" />
+    </AssociationSet>
+    <AssociationSet Name="productorderdetail" Association="QLBHModel.productorderdetail">
+      <End Role="product" EntitySet="products" />
+      <End Role="orderdetail" EntitySet="orderdetails" />
+    </AssociationSet>
+    <AssociationSet Name="manufacturerproduct" Association="QLBHModel.manufacturerproduct">
+      <End Role="manufacturer" EntitySet="manufacturers" />
+      <End Role="product" EntitySet="products" />
+    </AssociationSet>
+  </EntityContainer>
+  <Association Name="categoryproduct">
+    <End Type="QLBHModel.category" Role="category" Multiplicity="1" />
+    <End Type="QLBHModel.product" Role="product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="category">
+        <PropertyRef Name="CatId" />
+      </Principal>
+      <Dependent Role="product">
+        <PropertyRef Name="CatId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="orderorderdetail">
+    <End Type="QLBHModel.order" Role="order" Multiplicity="1" />
+    <End Type="QLBHModel.orderdetail" Role="orderdetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="order">
+        <PropertyRef Name="OrderId" />
+      </Principal>
+      <Dependent Role="orderdetail">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="userorder">
+    <End Type="QLBHModel.user" Role="user" Multiplicity="1" />
+    <End Type="QLBHModel.order" Role="order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="order">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="productorderdetail">
+    <End Type="QLBHModel.product" Role="product" Multiplicity="1" />
+    <End Type="QLBHModel.orderdetail" Role="orderdetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product">
+        <PropertyRef Name="ProId" />
+      </Principal>
+      <Dependent Role="orderdetail">
+        <PropertyRef Name="ProId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="manufacturerproduct">
+    <End Type="QLBHModel.manufacturer" Role="manufacturer" Multiplicity="1" />
+    <End Type="QLBHModel.product" Role="product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="manufacturer">
+        <PropertyRef Name="MaId" />
+      </Principal>
+      <Dependent Role="product">
+        <PropertyRef Name="MaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QLBHModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="categories">
+    <Key>
+      <PropertyRef Name="CatId" />
+    </Key>
+    <Property Name="CatId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CatName" Type="nvarchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="manufacturers">
+    <Key>
+      <PropertyRef Name="MaId" />
+    </Key>
+    <Property Name="MaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaName" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="orderdetails">
+    <Key>
+      <PropertyRef Name="DetId" />
+    </Key>
+    <Property Name="OrderId" Type="int" Nullable="false" />
+    <Property Name="ProId" Type="int" Nullable="false" />
+    <Property Name="Amount" Type="int" Nullable="false" />
+    <Property Name="DetId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="orders">
+    <Key>
+      <PropertyRef Name="OrderId" />
+    </Key>
+    <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderDate" Type="date" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Total" Type="bigint" Nullable="false" />
+    <Property Name="OrderStatus" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="products">
+    <Key>
+      <PropertyRef Name="ProId" />
+    </Key>
+    <Property Name="ProId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProName" Type="nvarchar" MaxLength="50" />
+    <Property Name="ShortDes" Type="nvarchar" MaxLength="50" />
+    <Property Name="LongDes" Type="nvarchar(max)" />
+    <Property Name="NewPrice" Type="int" Nullable="false" />
+    <Property Name="OldPrice" Type="int" Nullable="false" />
+    <Property Name="CatId" Type="int" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="ViewCount" Type="int" Nullable="false" />
+    <Property Name="DateAdd" Type="date" Nullable="false" />
+    <Property Name="MaId" Type="int" Nullable="false" />
+    <Property Name="Sale" Type="int" />
+  </EntityType>
+  <EntityType Name="users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DOB" Type="date" Nullable="false" />
+    <Property Name="Permission" Type="int" Nullable="false" />
+    <Property Name="Phone" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Address" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="QLBHModelStoreContainer">
+    <EntitySet Name="categories" EntityType="Self.categories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="manufacturers" EntityType="Self.manufacturers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="orderdetails" EntityType="Self.orderdetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="orders" EntityType="Self.orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="products" EntityType="Self.products" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

@@ -1,4 +1,5 @@
 ﻿using BotDetect.Web;
+using QLBH_MVC.Filters;
 using QLBH_MVC.Models;
 using QLBH_MVC.Utils;
 using System;
@@ -25,6 +26,7 @@ namespace QLBH_MVC.Controllers
             return View();
         }
 
+        [HttpPost]
         public ActionResult Logout()
         {
             CurrentContext.Logout();
@@ -70,10 +72,7 @@ namespace QLBH_MVC.Controllers
 
                         if (require!=null)
                         {
-                            if (require == "cart")
-                            {
-                                return Json(new { Success = "Đăng nhập thành công", Address = "/Cart/ViewCart" });
-                            }
+                                return Json(new { Success = "Đăng nhập thành công", Address = require });
                         }
 
                         return Json(new { Success = "Đăng nhập thành công",Address="/Home/Index" });
@@ -92,6 +91,11 @@ namespace QLBH_MVC.Controllers
 
         public ActionResult Register()
         {
+            if (CurrentContext.IsLogged() == true)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             return View();
         }
 
@@ -148,6 +152,7 @@ namespace QLBH_MVC.Controllers
             }
         }
 
+        [LoginRequired]
         public ActionResult UserProfile()
         {
             if (CurrentContext.IsLogged() == true)

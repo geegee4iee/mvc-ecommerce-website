@@ -1,4 +1,5 @@
-﻿using QLBH_MVC.Models;
+﻿using QLBH_MVC.Filters;
+using QLBH_MVC.Models;
 using QLBH_MVC.Utils;
 using System;
 using System.Collections.Generic;
@@ -8,98 +9,37 @@ using System.Web.Mvc;
 
 namespace QLBH_MVC.Controllers
 {
+    [LoginRequired(Permission = 1)]
     public class AdminController : Controller
     {
         //
         // GET: /Admin/
         public ActionResult Index()
         {
-            using(QLBHEntities ctx = new QLBHEntities()){
-
-                if (CurrentContext.IsLogged() == false)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-                SessionUser userSess = CurrentContext.GetSessionUser();
-
-                user ur = ctx.users.Where(c => c.Id == userSess.Id).FirstOrDefault();
-
-                if (ur.Permission == 0)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-
+            using (QLBHEntities ctx = new QLBHEntities())
+            {
                 ViewBag.TotalProduct = ctx.products.Count();
                 ViewBag.TotalCategory = ctx.categories.Count();
                 ViewBag.TotalManufacturer = ctx.manufacturers.Count();
                 ViewBag.TotalOrdered = ctx.orders.Where(c => c.OrderStatus == 1).Count();
                 ViewBag.TotalOrdering = ctx.orders.Where(c => c.OrderStatus == 0).Count();
             }
-           
+
             return View();
         }
 
         public ActionResult Category()
         {
-            using (QLBHEntities ctx = new QLBHEntities())
-            {
-
-                if (CurrentContext.IsLogged() == false)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-                SessionUser userSess = CurrentContext.GetSessionUser();
-
-                user ur = ctx.users.Where(c => c.Id == userSess.Id).FirstOrDefault();
-
-                if (ur.Permission == 0)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-            }
-
             return View();
         }
 
         public ActionResult Manufacturer()
         {
-            using (QLBHEntities ctx = new QLBHEntities())
-            {
-
-                if (CurrentContext.IsLogged() == false)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-                SessionUser userSess = CurrentContext.GetSessionUser();
-
-                user ur = ctx.users.Where(c => c.Id == userSess.Id).FirstOrDefault();
-
-                if (ur.Permission == 0)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-            }
             return View();
         }
 
         public ActionResult Product()
         {
-            using (QLBHEntities ctx = new QLBHEntities())
-            {
-
-                if (CurrentContext.IsLogged() == false)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-                SessionUser userSess = CurrentContext.GetSessionUser();
-
-                user ur = ctx.users.Where(c => c.Id == userSess.Id).FirstOrDefault();
-
-                if (ur.Permission == 0)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-            }
             using (QLBHEntities ctx = new QLBHEntities())
             {
                 ViewBag.Categories = ctx.categories.ToList();
@@ -110,22 +50,6 @@ namespace QLBH_MVC.Controllers
 
         public ActionResult Order()
         {
-            using (QLBHEntities ctx = new QLBHEntities())
-            {
-
-                if (CurrentContext.IsLogged() == false)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-                SessionUser userSess = CurrentContext.GetSessionUser();
-
-                user ur = ctx.users.Where(c => c.Id == userSess.Id).FirstOrDefault();
-
-                if (ur.Permission == 0)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-            }
             return View();
         }
 
@@ -189,7 +113,7 @@ namespace QLBH_MVC.Controllers
         int PageSize = 10;
 
         public ActionResult TableProduct(int page = 1)
-       {
+        {
 
             using (QLBHEntities ctx = new QLBHEntities())
             {
@@ -379,7 +303,7 @@ namespace QLBH_MVC.Controllers
             {
                 product proc = ctx.products.Where(c => c.ProId == model.ProId).FirstOrDefault();
 
-                proc.ProName = model.ProName == null?"":model.ProName;
+                proc.ProName = model.ProName == null ? "" : model.ProName;
                 proc.NewPrice = model.NewPrice;
                 proc.MaId = model.MaId;
                 proc.CatId = model.CatId;
@@ -417,7 +341,7 @@ namespace QLBH_MVC.Controllers
                 ctx.products.Remove(proc);
                 ctx.SaveChanges();
 
-                
+
 
                 return Json(new { Success = "xóa thành công" });
             }
@@ -432,7 +356,7 @@ namespace QLBH_MVC.Controllers
             {
                 product proc = new product
                 {
-                    ProName = model.ProName == null ?"":model.ProName,
+                    ProName = model.ProName == null ? "" : model.ProName,
                     NewPrice = model.NewPrice,
                     OldPrice = 400000,
                     MaId = model.MaId,

@@ -1,4 +1,5 @@
-﻿using QLBH_MVC.Models;
+﻿using QLBH_MVC.Filters;
+using QLBH_MVC.Models;
 using QLBH_MVC.Utils;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace QLBH_MVC.Controllers
             return View();
         }
 
+        [LoginRequired]
         public ActionResult ViewCart()
         {
             if (CurrentContext.IsLogged() == false)
@@ -27,6 +29,7 @@ namespace QLBH_MVC.Controllers
             else return View();
         }
 
+         [LoginRequired]
         public ActionResult PartialListTable()
         {
             var cart = CurrentContext.GetSessionCart();

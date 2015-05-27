@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="QLBHModelStoreContainer" CdmEntityContainer="QLBHEntities">
+    <EntitySetMapping Name="categories">
+      <EntityTypeMapping TypeName="QLBHModel.category">
+        <MappingFragment StoreEntitySet="categories">
+          <ScalarProperty Name="CatId" ColumnName="CatId" />
+          <ScalarProperty Name="CatName" ColumnName="CatName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="manufacturers">
+      <EntityTypeMapping TypeName="QLBHModel.manufacturer">
+        <MappingFragment StoreEntitySet="manufacturers">
+          <ScalarProperty Name="MaId" ColumnName="MaId" />
+          <ScalarProperty Name="MaName" ColumnName="MaName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="orderdetails">
+      <EntityTypeMapping TypeName="QLBHModel.orderdetail">
+        <MappingFragment StoreEntitySet="orderdetails">
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="ProId" ColumnName="ProId" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="DetId" ColumnName="DetId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="orders">
+      <EntityTypeMapping TypeName="QLBHModel.order">
+        <MappingFragment StoreEntitySet="orders">
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="products">
+      <EntityTypeMapping TypeName="QLBHModel.product">
+        <MappingFragment StoreEntitySet="products">
+          <ScalarProperty Name="ProId" ColumnName="ProId" />
+          <ScalarProperty Name="ProName" ColumnName="ProName" />
+          <ScalarProperty Name="ShortDes" ColumnName="ShortDes" />
+          <ScalarProperty Name="LongDes" ColumnName="LongDes" />
+          <ScalarProperty Name="NewPrice" ColumnName="NewPrice" />
+          <ScalarProperty Name="OldPrice" ColumnName="OldPrice" />
+          <ScalarProperty Name="CatId" ColumnName="CatId" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+          <ScalarProperty Name="DateAdd" ColumnName="DateAdd" />
+          <ScalarProperty Name="MaId" ColumnName="MaId" />
+          <ScalarProperty Name="Sale" ColumnName="Sale" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="users">
+      <EntityTypeMapping TypeName="QLBHModel.user">
+        <MappingFragment StoreEntitySet="users">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+          <ScalarProperty Name="Permission" ColumnName="Permission" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

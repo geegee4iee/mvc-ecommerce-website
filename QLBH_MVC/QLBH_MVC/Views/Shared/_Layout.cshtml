@@ -20,8 +20,7 @@
         }
     </style>
 </head>
-<body onload="init()" style="margin:0;padding:0;height:100%" class="bg-darkCyan">
-    <div style="min-height:100%;position:relative">
+<body onload="init()" style="margin:0;padding:0;height:100%">
 
         <header class="app-bar fixed-top" data-role="appbar">
             <a class="app-bar-element branding">BAG STORE</a>
@@ -69,7 +68,7 @@
                                 <a href="@Url.Action("UserProfile","Account")">Thông tin cá nhân</a>
                             </li>
                             <li>
-                                <a href="@Url.Action("Logout","Account")">Đăng xuất</a>
+                                <a id="linkLogout" href="#">Đăng xuất</a>
                             </li>
                             @if (a.Permission == 1)
                             {
@@ -108,37 +107,11 @@
             <span class="app-bar-pull"></span>
         </header>
 
-        <div style="padding-bottom:200px;width:100%;margin-top:3.125rem">
+        <form id="formLogout" method="post" action="@Url.Action("Logout","Account")"></form>
+
             @RenderBody()
-        </div>
 
-        <div style="width:100%;position:absolute;bottom:0;left:0">
-
-            <div>
-                <div class="presenter" data-role="presenter" data-height="100" data-easing="easeInExpo">
-                    <div class="scene">
-                        <div class="act ribbed-darkEmerald fg-white">
-                            <h1 class="actor" data-position="10,10">Thông tin website</h1>
-                            <p class="actor" data-position="70,10">Được thực hiện bởi Huỳnh Chánh Kiệt</p>
-                            <p class="actor" data-position="95,10">Sử dụng bộ CSS <a class="fg-yellow" href="http://metroui.org.ua/">Metro</a></p>
-
-                            <img src="~/images/home/5.jpg" class="actor" data-position="10,500" style="height: 130px">
-                            <img src="~/images/home/6.jpg" class="actor" data-position="50,800" style="height: 100px">
-                            <img src="~/images/home/7.jpg" class="actor" data-position="30,990" style="height: 80px">
-                        </div>
-                        <div class="act ribbed-grayDark fg-white">
-                            <h1 class="actor" data-position="10,10">Liên hệ cửa hàng</h1>
-                            <p class="actor" data-position="70,10">Phone <span class="fg-amber">+1900-1560</span></p>
-                            <p class="actor" data-position="95,10">Địa chỉ: 18/5 Phường 12, đường Võ Thị Sáu</p>
-                            <img src="~/images/home/8.jpg" class="actor" data-position="10,500" style="height: 130px">
-                            <img src="~/images/home/9.jpg" class="actor" data-position="50,750" style="height: 100px">
-                            <img src="~/images/home/10.jpg" class="actor" data-position="30,950" style="height: 80px">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        
 
 
 
@@ -168,6 +141,10 @@
                 $('#cart-list').load("/Cart/PartialList");
 
             });
+        });
+
+        $("#linkLogout").click(function () {
+            $("#formLogout").submit();
         });
     </script>
 

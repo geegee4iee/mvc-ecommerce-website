@@ -1,85 +1,112 @@
-﻿<div class="grid condensed full-size" style="margin-bottom:0">
-    <div class="row cells6">
-        <div class="cell colspan4 fg-grayLighter" style="padding:20px">
-            <h1 class="tile-area-title">Chào bạn</h1>
-            <div class="row cells3">
-                <div class="cell">
-                    <div class="tile-container">
-                        <div class="tile bg-red fg-white" data-role="tile">
-                            <div class="tile-content iconic">
-                                <span class="icon mif-credit-card"></span>
-                                <span class="tile-label">Thanh toán</span>
+﻿<div style="min-height:100%;padding-bottom:200px;margin-top:3.125rem" class="bg-darkCyan">
+    <div class="grid condensed full-size bg-darkCyan" style="margin-bottom:0">
+        <div class="row cells6">
+            <div class="cell colspan4 fg-grayLighter" style="padding:20px">
+                <h1 class="tile-area-title">Chào bạn</h1>
+                    <div class="cell">
+                        <div class="tile-container">
+                            <div class="tile bg-red fg-white" data-role="tile">
+                                <div class="tile-content iconic">
+                                    <span class="icon mif-credit-card"></span>
+                                    <span class="tile-label">Thanh toán</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="tile bg-cyan fg-white" data-role="tile">
-                            <div class="tile-content iconic">
-                                <span class="icon mif-users"></span>
-                                <span class="tile-badge bg-darkRed">@ViewBag.Users</span>
-                                <span class="tile-label">User</span>
+                            <div class="tile bg-cyan fg-white" data-role="tile">
+                                <div class="tile-content iconic">
+                                    <span class="icon mif-users"></span>
+                                    <span class="tile-badge bg-darkRed">@ViewBag.Users</span>
+                                    <span class="tile-label">User</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="tile-wide fg-white" data-role="tile" data-effect="slideLeftRight">
-                            <div class="tile-content">
-                                <div class="live-slide"><img src="~/images/home/1.jpg" data-role="fitImage" data-format="fill"></div>
-                                <div class="live-slide"><img src="~/images/home/2.jpg" data-role="fitImage" data-format="fill"></div>
-                                <div class="live-slide"><img src="~/images/home/3.jpg" data-role="fitImage" data-format="fill"></div>
-                                <div class="live-slide"><img src="~/images/home/4.jpg" data-role="fitImage" data-format="fill"></div>
-                                <div class="live-slide"><img src="~/images/home/5.jpg" data-role="fitImage" data-format="fill"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="cell">
-                    <div class="tile-wide bg-darkCyan fg-white" data-role="tile">
-                        <div class="tile-content">
-                            <div class="carousel" data-role="carousel" data-controls="false" data-markers="true">
-                                <div class="slide"><img src="~/images/home/6.jpg"></div>
-                                <div class="slide"><img src="~/images/home/7.jpg"></div>
-                                <div class="slide"><img src="~/images/home/8.jpg"></div>
-                                <div class="slide"><img src="~/images/home/9.jpg"></div>
-                                <div class="slide"><img src="~/images/home/10.jpg"></div>
+                            <div class="tile-wide fg-white" data-role="tile" data-effect="slideLeftRight">
+                                <div class="tile-content">
+                                    <div class="live-slide"><img src="~/images/home/1.jpg" data-role="fitImage" data-format="fill"></div>
+                                    <div class="live-slide"><img src="~/images/home/2.jpg" data-role="fitImage" data-format="fill"></div>
+                                    <div class="live-slide"><img src="~/images/home/3.jpg" data-role="fitImage" data-format="fill"></div>
+                                    <div class="live-slide"><img src="~/images/home/4.jpg" data-role="fitImage" data-format="fill"></div>
+                                    <div class="live-slide"><img src="~/images/home/5.jpg" data-role="fitImage" data-format="fill"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="tile-wide bg-green fg-white" data-role="tile">
-                        <div class="tile-content iconic">
-                            <span class="icon mif-clipboard"></span>
-                            <span class="tile-badge bg-darkRed">@ViewBag.NewRegister</span>
-                            <span class="tile-label">Người dùng mới</span>
+                    <div class="cell">
+                        <div class="tile-container">
+                            <div class="tile-wide bg-darkCyan fg-white" data-role="tile">
+                                <div class="tile-content">
+                                    <div class="carousel" data-role="carousel" data-controls="false" data-markers="true">
+                                        <div class="slide"><img src="~/images/home/6.jpg"></div>
+                                        <div class="slide"><img src="~/images/home/7.jpg"></div>
+                                        <div class="slide"><img src="~/images/home/8.jpg"></div>
+                                        <div class="slide"><img src="~/images/home/9.jpg"></div>
+                                        <div class="slide"><img src="~/images/home/10.jpg"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tile-wide bg-green fg-white" data-role="tile">
+                                <div class="tile-content iconic">
+                                    <span class="icon mif-clipboard"></span>
+                                    <span class="tile-badge bg-darkRed">@ViewBag.NewRegister</span>
+                                    <span class="tile-label">Người dùng mới</span>
+                                </div>
+                            </div>
                         </div>
+                       
                     </div>
-                </div>
+            </div>
+            <div class="cell colspan2 bg-darkCyan fg-grayLighter" style="padding:20px;margin-top:20px">
+                <h1>Đăng nhập</h1>
+                <p>
+                    <small>
+                        Đăng nhập vào  <span class="sub-alt-header fg-blue">tài khoản </span> của bạn để có thể tận hưởng <span class="sub-alt-header">chuyến mua sắm thỏa thích</span>
+                    </small>
 
+                </p>
+                <form action="" method="post" id="loginForm">
+                    <h5 class="text-dashed">Tên tài khoản</h5>
+                    <div class="input-control text full-size" data-role="input" id="formUID">
+                        <input type="text" name="UID">
+                        <button class="button helper-button clear"><span class="mif-cross"></span></button>
+                    </div>
+                    <h5 class="text-dashed">Mật khẩu</h5>
+                    <div class="input-control password full-size" data-role="input">
+                        <input type="password" name="PWD">
+                        <button class="button helper-button reveal"><span class="mif-looks"></span></button>
+                    </div>
+                    <div>
+                        <label class="input-control checkbox small-check">
+                            <input type="checkbox" name="Cookie">
+                            <span class="check"></span>
+                            <span class="caption">Ghi nhớ</span>
+                        </label>
+                    </div>
+                    <button class="button" type="submit" id="registerButton">Đăng nhập</button>
+                </form>
             </div>
         </div>
-        <div class="cell colspan2 bg-darkCyan fg-grayLighter" style="padding:20px;margin-top:20px">
-            <h1>Đăng nhập</h1>
-            <p>
-                <small>
-                    Đăng nhập vào  <span class="sub-alt-header fg-blue">tài khoản </span> của bạn để có thể tận hưởng <span class="sub-alt-header">chuyến mua sắm thỏa thích</span>
-                </small>
+    </div>
+    <div style="width:100%;position:absolute;bottom:0;left:0">
+        <div>
+            <div class="presenter" data-role="presenter" data-height="100" data-easing="easeInExpo">
+                <div class="scene">
+                    <div class="act ribbed-darkEmerald fg-white">
+                        <h1 class="actor" data-position="10,10">Thông tin website</h1>
+                        <p class="actor" data-position="70,10">Được thực hiện bởi Huỳnh Chánh Kiệt</p>
+                        <p class="actor" data-position="95,10">Sử dụng bộ CSS <a class="fg-yellow" href="http://metroui.org.ua/">Metro</a></p>
 
-            </p>
-            <form action="" method="post" id="loginForm">
-                <h5 class="text-dashed">Tên tài khoản</h5>
-                <div class="input-control text full-size" data-role="input" id="formUID">
-                    <input type="text" name="UID">
-                    <button class="button helper-button clear"><span class="mif-cross"></span></button>
+                        <img src="~/images/home/5.jpg" class="actor" data-position="10,500" style="height: 130px">
+                        <img src="~/images/home/6.jpg" class="actor" data-position="50,800" style="height: 100px">
+                        <img src="~/images/home/7.jpg" class="actor" data-position="30,990" style="height: 80px">
+                    </div>
+                    <div class="act ribbed-grayDark fg-white">
+                        <h1 class="actor" data-position="10,10">Liên hệ cửa hàng</h1>
+                        <p class="actor" data-position="70,10">Phone <span class="fg-amber">+1900-1560</span></p>
+                        <p class="actor" data-position="95,10">Địa chỉ: 18/5 Phường 12, đường Võ Thị Sáu</p>
+                        <img src="~/images/home/8.jpg" class="actor" data-position="10,500" style="height: 130px">
+                        <img src="~/images/home/9.jpg" class="actor" data-position="50,750" style="height: 100px">
+                        <img src="~/images/home/10.jpg" class="actor" data-position="30,950" style="height: 80px">
+                    </div>
                 </div>
-                <h5 class="text-dashed">Mật khẩu</h5>
-                <div class="input-control password full-size" data-role="input">
-                    <input type="password" name="PWD">
-                    <button class="button helper-button reveal"><span class="mif-looks"></span></button>
-                </div>
-                <div>
-                    <label class="input-control checkbox small-check">
-                        <input type="checkbox" name="Cookie">
-                        <span class="check"></span>
-                        <span class="caption">Ghi nhớ</span>
-                    </label>
-                </div>
-                <button class="button" type="submit" id="registerButton">Đăng nhập</button>
-            </form>
+            </div>
         </div>
     </div>
 </div>
@@ -108,15 +135,12 @@
             $(".error-exists").hide();
         });
 
-        function GetURLParameter(sParam)
-        {
+        function GetURLParameter(sParam) {
             var sPageURL = window.location.search.substring(1);
             var sURLVariables = sPageURL.split('&');
-            for (var i = 0; i < sURLVariables.length; i++)
-            {
+            for (var i = 0; i < sURLVariables.length; i++) {
                 var sParameterName = sURLVariables[i].split('=');
-                if (sParameterName[0] == sParam)
-                {
+                if (sParameterName[0] == sParam) {
                     return sParameterName[1];
                 }
             }
