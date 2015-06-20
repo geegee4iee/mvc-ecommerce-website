@@ -112,25 +112,14 @@ namespace QLBH_MVC.Controllers
 
         int PageSize = 10;
 
-        public ActionResult TableProduct(int page = 1)
+        public ActionResult TableProduct()
         {
 
             using (QLBHEntities ctx = new QLBHEntities())
             {
                 var query = ctx.products.Include("category").Include("manufacturer");
-                int count = query.Count();
 
-                int pages = count / PageSize + (count % PageSize > 0 ? 1 : 0);
-
-                if (page < 1 || page > pages)
-                {
-                    page = 1;
-                }
-
-                List<product> list = query.OrderBy(c => c.ProId).Skip((page - 1) * PageSize).Take(PageSize).ToList();
-                ViewBag.Count = count;
-                ViewBag.PageCount = pages;
-                ViewBag.CurPage = page;
+                List<product> list = query.OrderBy(c => c.ProId).ToList();
 
 
                 ViewBag.Categories = ctx.categories.ToList();

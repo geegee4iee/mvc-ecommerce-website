@@ -3,7 +3,7 @@
 @model List<manufacturer>
 <div id="tableCategory">
     <button class="button add-cat-btn" type="button" data-toggle="modal" data-target="#addModal"><span class="mif-play"></span>&nbsp;Thêm nhà sản xuất</button>
-    <table class="table striped hovered">
+    <table class="table striped hovered" id="table">
         <thead>
             <tr>
                 <th>Mã</th>
@@ -84,6 +84,22 @@
 
 
 <script>
+    $(document).ready(function () {
+        $('#table').dataTable(
+            {
+                "language": {
+                    "lengthMenu": "Hiển thị _MENU_ mục một trang",
+                    "zeroRecords": "Không tồn tại",
+                    "info": "Đang hiển thị trang _PAGE_ / _PAGES_",
+                    "infoEmpty": "Không có",
+                    "search": "Tìm kiếm",
+                    "paginate": {
+                        "next": "Trang kế",
+                        "previous": "Trang cũ"
+                    }
+                }
+            });
+    });
     function hideModal() {
         $("#myModal").removeClass("in");
         $("#addModal").removeClass("in");

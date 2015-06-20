@@ -153,7 +153,7 @@
         var procId = $(this).attr("data-id");
         var inputId = "#inputCart_" + procId;
         var amount = $(inputId).val();
-        if (procId != '' && amount != '') {
+        if (procId != '' && amount != '' && amount > 0) {
             $.post("/Cart/UpdateProduct", { "id": procId, "amount": amount }, function (data) {
                 $('#cart-status').text(data.Cart.Total);
                 if (data.Status == false) {
@@ -168,6 +168,11 @@
                 }
 
             });
+        }
+        else {
+            setTimeout(function () {
+                $.Notify({ type: 'alert', caption: 'Thao tác', content: "không hợp lệ" });
+            }, 200);
         }
 
         $('#cart-list').load("/Cart/PartialList");

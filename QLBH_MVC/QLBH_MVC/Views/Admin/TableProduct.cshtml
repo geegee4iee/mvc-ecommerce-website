@@ -3,7 +3,7 @@
 @model List<product>
 <div id="page-info" data-id="@ViewBag.CurPage"></div>
 <div>
-    <table class="table hovered">
+    <table class="table hovered" id="table">
         <thead>
             <tr>
                 <th>
@@ -74,17 +74,24 @@
         </tbody>
     </table>
 </div>
-<a data-id="@(ViewBag.CurPage - 1)" class="button @(ViewBag.CurPage == 1 ? "disabled" : "") btn-page-load"><</a>
-@for (int i = 1; i <= ViewBag.PageCount; i++)
-{
-    <a data-id="@i" class="button @(ViewBag.CurPage == i ? "disabled" : "") btn-page-load">@i</a>
-}
-<a data-id="@(ViewBag.CurPage + 1)" class="button @(ViewBag.CurPage == ViewBag.PageCount ? "disabled" : "") btn-page-load">></a>
+
 <script src="~/Scripts/sweetalert.min.js"></script>
 <script>
-    $('.btn-page-load').click(function () {
-        page = $(this).attr('data-id');
-        $('#tableProduct').load("/Admin/TableProduct", { page: page });
+    $(document).ready(function () {
+        $('#table').dataTable(
+            {
+                "language": {
+                    "lengthMenu": "Hiển thị _MENU_ mục một trang",
+                    "zeroRecords": "Không tồn tại",
+                    "info": "Đang hiển thị trang _PAGE_ / _PAGES_",
+                    "infoEmpty": "Không có",
+                    "search": "Tìm kiếm",
+                    "paginate": {
+                        "next": "Trang kế",
+                        "previous": "Trang cũ"
+                    }
+                }
+            });
     });
 
     $('.btn-load-product').click(function () {

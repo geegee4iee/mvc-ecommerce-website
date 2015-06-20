@@ -54,6 +54,14 @@
 
 }
 
-.sidebar2 li, .sidebar2 li:not(.title)+li.title {
-  border-top: none;
+.sidebar2 li ul li, .sidebar2 li:not(.title)+li.title {
+    border-top: 1px #eee solid;
+}
+
+.sidebar2 li.stick:before{
+    height:0;
+}
+
+.sidebar-update{
+    border-bottom:0px #eee solid;
 }

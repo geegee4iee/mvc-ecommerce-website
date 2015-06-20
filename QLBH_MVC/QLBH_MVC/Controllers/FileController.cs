@@ -19,9 +19,9 @@ namespace TestAjaxUpload
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public virtual ActionResult UploadFile(int? id,int? kind)
+        public virtual ActionResult UploadFile(int? id, int? kind)
         {
-            HttpPostedFileBase myFile=null;
+            HttpPostedFileBase myFile = null;
             if (kind == 1)
             {
                 myFile = Request.Files["ImageFile"];
@@ -30,13 +30,13 @@ namespace TestAjaxUpload
             {
                 myFile = Request.Files["uImageFile"];
             }
-            
+
             bool isUploaded = false;
             string message = "File upload failed";
 
             if (myFile != null && myFile.ContentLength != 0 && myFile.ContentType == "image/jpeg")
             {
-                string pathForSaving = Server.MapPath("~/images/product/"+ id);
+                string pathForSaving = Server.MapPath("~/images/product/" + id);
                 if (this.CreateFolderIfNeeded(pathForSaving))
                 {
                     try
@@ -76,6 +76,13 @@ namespace TestAjaxUpload
                 {
                     /*TODO: You must process this exception.*/
                     result = false;
+                }
+            }
+            else
+            {
+                if (System.IO.File.Exists(Path.Combine(path, "img.jpg")))
+                {
+                    System.IO.File.Delete(Path.Combine(path, "img.jpg"));
                 }
             }
             return result;
