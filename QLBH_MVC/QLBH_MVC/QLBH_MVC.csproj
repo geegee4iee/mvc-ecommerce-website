@@ -435,6 +435,7 @@
       <DependentUpon>QLBH.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\RegisterModel.cs" />
+    <Compile Include="Models\SearchingModel.cs" />
     <Compile Include="Models\SessionCart.cs" />
     <Compile Include="Models\SessionCartProduct.cs" />
     <Compile Include="Models\SessionCartStatus.cs" />
@@ -494,6 +495,7 @@
     <Content Include="Views\Admin\Product.cshtml" />
     <Content Include="Views\Admin\TableOrder.cshtml" />
     <Content Include="Views\Admin\Order.cshtml" />
+    <Content Include="Views\Product\EnhanceSearch.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

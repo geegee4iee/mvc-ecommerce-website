@@ -1,0 +1,185 @@
+﻿@using QLBH_MVC.Models
+
+@model List<product>
+
+<div style="min-height:100%;padding-bottom:200px" class="bg-grayLighter">
+
+
+    <div class="grid condensed" style="margin-top: 3.125rem; margin-bottom: 10px;margin-right:10px;margin-left:10px">
+        <div class="row cells4" style="margin-top:10px">
+            <div class="cell">
+                <div class="row" style="padding-right:10px">
+                    <div class="example">
+                        <form method="get" action="/Product/EnhanceSearch/" id="formSearching">
+
+
+                            <h5 class="fg-darkCyan">Sản phẩm</h5>
+                            <div class="input-control text">
+                                <input name="Product" />
+                            </div>
+                            <h5 class="fg-darkCyan">Loại sản phẩm</h5>
+                            <div class="input-control select">
+                                <select id="uselect-cat" name="CatId">
+                                    @foreach (category c in ViewBag.Categories)
+                                    {
+                                        <option value="@c.CatId">@c.CatName</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <h5 class="fg-darkCyan">Nhà sản suất</h5>
+                            <div class="input-control select">
+                                <select id="uselect-ma" name="MaId">
+                                    @foreach (manufacturer c in ViewBag.Manufacturers)
+                                    {
+                                        <option value="@c.MaId">@c.MaName</option>
+                                    }
+                                </select>
+                            </div>
+                            <h5 class="fg-darkCyan">Giá</h5>
+                            <div class="input-control select">
+                                <select id="uselect-ma" name="OptinalPrice">
+                                    <option value="0">Lớn hơn hoặc bằng</option>
+                                    <option value="1">Nhỏ hơn hoặc bằng</option>
+                                </select>
+                            </div>
+                            <div class="input-control text">
+                                <input name="Price" />
+                            </div>
+                            <button class="button ">Tìm kiếm</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="cell colspan3">
+                <div class="tile-container">
+                    @foreach (product c in Model)
+                    {
+                        <div class="tile-large fg-white" data-role="tile" style="">
+                            <div class="tile-content slide-down-2">
+                                <div class="slide">
+                                    <img src="~/images/product/@(c.ProId)/img.jpg" data-role="fitImage" data-format="fill">
+                                    <span class="tile-badge bg-darkRed">@c.NewPrice đ</span>
+                                </div>
+                                <div class="slide-over bg-darkCyan text-small padding10">
+                                    <a class="button fg-gray add-cart" data-id="@c.ProId"><span class="mif-cart fg-cyan"></span>&nbsp;Đặt hàng</a>
+                                    <ul class="simple-list">
+                                        <li class="fg-white">
+                                            Thuộc loại @c.category.CatName
+                                        </li>
+                                        <li class="fg-white">
+                                            Do @c.manufacturer.MaName sản xuất
+                                        </li>
+                                        <li class="fg-white">
+                                            Hiện còn <span class="fg-lightTeal">@c.Quantity</span> cái
+                                        </li>
+                                        <li class="fg-white">
+                                            @c.ShortDes
+                                        </li>
+                                    </ul>
+
+                                    <a class="fg-white" href="@Url.Action("Detail", "Product", new { id=@c.ProId })"><div class="tile-label header">@c.ProName</div></a>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="row">
+                    @if (Model.Count > 0)
+                    {
+                        <a href="@Url.Action("EnhanceSearch", "Product",
+                        new {Product = ViewBag.Search.Product,
+                                CatId = ViewBag.Search.CatId,
+                                MaId = ViewBag.Search.MaId,
+                                OptinalPrice = ViewBag.Search.OptinalPrice,
+                                Price = ViewBag.Search.Price
+                                ,page=ViewBag.CurPage-1 })" class="button @(ViewBag.CurPage == 1 ? "disabled" : "")"><</a>
+                        for (int i = 1; i <= ViewBag.PageCount; i++)
+                        {
+                            <a href="@Url.Action("Search", "Product", new
+                                {
+                                    Product = ViewBag.Search.Product,
+                                    CatId = ViewBag.Search.CatId,
+                                    MaId = ViewBag.Search.MaId,
+                                    OptinalPrice = ViewBag.Search.OptinalPrice,
+                                    Price = ViewBag.Search.Price
+                                    ,
+                                    page = ViewBag.CurPage
+                                })" class="button @(ViewBag.CurPage == i ? "disabled" : "")">@i</a>
+                        }
+                        <a href="@Url.Action("Search", "Product", new
+                            {
+                                Product = ViewBag.Search.Product,
+                                CatId = ViewBag.Search.CatId,
+                                MaId = ViewBag.Search.MaId,
+                                OptinalPrice = ViewBag.Search.OptinalPrice,
+                                Price = ViewBag.Search.Price
+                                ,
+                                page = ViewBag.CurPage + 1
+                            })" class="button @(ViewBag.CurPage == ViewBag.PageCount ? "disabled" : "")">></a>
+                    }
+                    else
+                    {
+                        <h1 class="fg-darkCyan" style="padding:30px">Không tìm thấy</h1>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="width:100%;position:absolute;bottom:0;left:0">
+
+        <div>
+            <div class="presenter" data-role="presenter" data-height="100" data-easing="easeInExpo">
+                <div class="scene">
+                    <div class="act ribbed-darkEmerald fg-white">
+                        <h1 class="actor" data-position="10,10">Thông tin website</h1>
+                        <p class="actor" data-position="70,10">Được thực hiện bởi Huỳnh Chánh Kiệt</p>
+                        <p class="actor" data-position="95,10">Sử dụng bộ CSS <a class="fg-yellow" href="http://metroui.org.ua/">Metro</a></p>
+
+                        <img src="~/images/home/5.jpg" class="actor" data-position="10,500" style="height: 130px">
+                        <img src="~/images/home/6.jpg" class="actor" data-position="50,800" style="height: 100px">
+                        <img src="~/images/home/7.jpg" class="actor" data-position="30,990" style="height: 80px">
+                    </div>
+                    <div class="act ribbed-grayDark fg-white">
+                        <h1 class="actor" data-position="10,10">Liên hệ cửa hàng</h1>
+                        <p class="actor" data-position="70,10">Phone <span class="fg-amber">+1900-1560</span></p>
+                        <p class="actor" data-position="95,10">Địa chỉ: 18/5 Phường 12, đường Võ Thị Sáu</p>
+                        <img src="~/images/home/8.jpg" class="actor" data-position="10,500" style="height: 130px">
+                        <img src="~/images/home/9.jpg" class="actor" data-position="50,750" style="height: 100px">
+                        <img src="~/images/home/10.jpg" class="actor" data-position="30,950" style="height: 80px">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section js{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script>
+        $(function () {
+            $('#formSearching').validate({
+                rules: {
+                    Price: {
+                        digits:true
+                    }
+                },
+                messages: {
+                    Price: {
+                        digits: 'Giá tiền không hợp lệ'
+                    }
+                },
+                errorElement: 'small',
+                errorClass: 'place-right fg-red error',
+                highlight: function (element) {
+                    $(element).closest('.input-control').addClass('error');
+                },
+                success: function (label) {
+                    label.closest('.input-control').removeClass('error');
+                    label.remove();
+                }
+            });
+        });</script>
+}

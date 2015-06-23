@@ -1,7 +1,7 @@
 ﻿@using QLBH_MVC.Models
 
 @model List<category>
-<div id="tableCategory">
+
     <button class="button add-cat-btn" type="button" data-toggle="modal" data-target="#addModal"><span class="mif-play"></span>&nbsp;Thêm danh mục</button>
     <table class="table table-striped" id="table">
         <thead>
@@ -75,8 +75,6 @@
             </div>
         </div>
     </div>
-</div>
-
 
 
 
@@ -142,7 +140,9 @@
         if (newName != '') {
             $.post("/Admin/AddCategory", { "name": newName }, function (data) {
                 if (data.Success != '') {
-                    alert(data.Success);
+                    setTimeout(function () {
+                        $.Notify({ type: 'success', caption: 'Thành công', content: data.Success });
+                    }, 200);
                 }
             });
         }
@@ -157,7 +157,9 @@
 
         if (newName != '') {
             $.post("/Admin/UpdateCategory", { "CatId": id, "CatName": newName }, function (data) {
-                alert(data.Success);
+                setTimeout(function () {
+                    $.Notify({ type: 'success', caption: 'Thành công', content: data.Success });
+                }, 200);
             });
         }
 

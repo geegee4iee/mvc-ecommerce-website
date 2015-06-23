@@ -18,3 +18,4 @@ D:\MyGitHub\WebMVC\QLBH_MVC\QLBH_MVC\bin\System.Web.Helpers.xml
 D:\MyGitHub\WebMVC\QLBH_MVC\QLBH_MVC\bin\System.Web.Mvc.xml
 D:\MyGitHub\WebMVC\QLBH_MVC\QLBH_MVC\obj\Debug\QLBH_MVC.dll
 D:\MyGitHub\WebMVC\QLBH_MVC\QLBH_MVC\obj\Debug\QLBH_MVC.pdb
+D:\MyGitHub\WebMVC\QLBH_MVC\QLBH_MVC\obj\Debug\QLBH_MVC.csprojResolveAssemblyReference.cache
